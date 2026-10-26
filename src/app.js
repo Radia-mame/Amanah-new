@@ -20,9 +20,9 @@ var extend=function(a,b){for(var k in b)if(Object.prototype.hasOwnProperty.call(
 var getPath=function(o,p){p=p.split('.');for(var i=0;i<p.length&&o!=null;i++)o=o[p[i]];return o;};
 
 /* ---------- data ---------- */
-function defaults(){return {lang:'en',mode:'dark',palette:'violet',ui:3,bgStyle:'charcoal',cAccent:'',cLent:'#6EA8FE',cOwe:'#FF8A5B',textSize:'normal',pin:'',backupAt:0,remindLang:'en'};}
+function defaults(){return {lang:'en',mode:'auto',palette:'violet',ui:4,bgStyle:'charcoal',cAccent:'',cLent:'#6EA8FE',cOwe:'#FF8A5B',textSize:'normal',pin:'',backupAt:0,remindLang:'en'};}
 function emptyDb(){return {v:1,demo:false,settings:defaults(),people:[],loans:[],activity:[]};}
-function load(){try{var s=localStorage.getItem(KEY);if(s){var o=JSON.parse(s);if(o&&Array.isArray(o.loans)&&Array.isArray(o.people)){o.settings=Object.assign(defaults(),o.settings||{});if(o.settings.ui!==3){o.settings.ui=3;o.settings.palette='violet';o.settings.mode='dark';o.settings.bgStyle='charcoal';}o.activity=o.activity||[];return o;}}}catch(e){storageOK=false;}return null;}
+function load(){try{var s=localStorage.getItem(KEY);if(s){var o=JSON.parse(s);if(o&&Array.isArray(o.loans)&&Array.isArray(o.people)){o.settings=Object.assign(defaults(),o.settings||{});if(o.settings.ui!==4){o.settings.ui=4;o.settings.mode='auto';}o.activity=o.activity||[];return o;}}}catch(e){storageOK=false;}return null;}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(db));}catch(e){storageOK=false;toast(T('Could not save. Storage may be full (photos use a lot).'));}}
 function log(k,v){db.activity.push({id:uid(),ts:Date.now(),k:k,v:v||{}});if(db.activity.length>3000)db.activity.splice(0,db.activity.length-3000);}
 function seed(){
@@ -472,7 +472,7 @@ function loansCsv(){
 function restoreFrom(text){
   var o=null;try{o=JSON.parse(text);}catch(e){}
   if(!o||!Array.isArray(o.loans)||!Array.isArray(o.people))return showErr(T('That is not a valid backup.'));
-  ask({title:T('Restore this backup?'),msg:T('This replaces everything on this phone: {n} loans.',{n:o.loans.length}),ok:T('Yes, restore'),danger:true,fn:function(){o.settings=Object.assign(defaults(),o.settings||{});if(o.settings.ui!==3){o.settings.ui=3;o.settings.palette='violet';o.settings.mode='dark';o.settings.bgStyle='charcoal';}o.activity=o.activity||[];db=o;save();applyTheme();toast(T('Backup restored'));}});
+  ask({title:T('Restore this backup?'),msg:T('This replaces everything on this phone: {n} loans.',{n:o.loans.length}),ok:T('Yes, restore'),danger:true,fn:function(){o.settings=Object.assign(defaults(),o.settings||{});if(o.settings.ui!==4){o.settings.ui=4;o.settings.mode='auto';}o.activity=o.activity||[];db=o;save();applyTheme();toast(T('Backup restored'));}});
 }
 document.addEventListener('click',function(e){
   var t=e.target;if(t.hasAttribute&&t.hasAttribute('data-scrim')){if(state.conf)state.conf=null;else state.sheet=upSheet();render();return;}
