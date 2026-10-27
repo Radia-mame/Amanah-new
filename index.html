@@ -205,33 +205,54 @@ h1,h2,h3{letter-spacing:-.025em}
 .card,.row,.item{border-radius:16px}
 .num{font-weight:600;letter-spacing:-.02em}
 
-/* v3: MacroFactor-inspired */
+/* v3: MacroFactor-inspired Bento Grid Layout */
 body{background-color:var(--bg)}
 body{background-image:none}
 .card,.flush{border-radius:22px}
-.hero2{background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:18px;display:flex;flex-direction:column;gap:16px}
-.h2top{display:flex;align-items:center;gap:16px}
-.ring{position:relative;width:128px;height:128px;flex:none}.ring svg{width:100%;height:100%}
-.rt,.rf{fill:none;stroke-width:11}.rt{stroke:var(--seg)}.rf{stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1)}
-.rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.rc b{font-size:28px;font-weight:800;letter-spacing:-.04em}.rc span{font-size:12px;color:var(--muted)}
-.h2r{flex:1;display:flex;flex-direction:column;gap:14px;min-width:0}
-.mh{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted)}.mac .num{font-size:22px;font-weight:700;letter-spacing:-.03em;display:block;margin-top:2px}
-.dot{width:8px;height:8px;border-radius:50%;display:inline-block}.dot.g,.bar u.g{background:#4ADE80}.dot.o,.bar u.o{background:#FF9F68}
-.bar{height:6px;border-radius:99px;background:var(--seg);margin-top:6px;overflow:hidden}.bar u{display:block;height:100%;border-radius:99px;text-decoration:none}
-.trend{border-top:1px solid var(--line);padding-top:12px}.th{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--muted)}.th b{font-size:17px;color:var(--ink);font-weight:700;letter-spacing:-.02em}
-.trend svg{width:100%;height:56px;margin-top:8px;display:block}.tl{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}.ta{fill:var(--accent);opacity:.12}
-.trend small{display:block;margin-top:2px;font-size:11.5px}
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+.bento-card {
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: 24px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+.bento-card.span-2 {
+  grid-column: span 2;
+}
+.bento-card .card-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+}
+.ring{position:relative;width:80px;height:80px;flex:none}.ring svg{width:100%;height:100%}
+.rt,.rf{fill:none;stroke-width:10}.rt{stroke:var(--seg)}.rf{stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1)}
+.rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}.dot.g,.bar u.g{background:var(--lent)}.dot.o,.bar u.o{background:var(--owe)}
+.tl{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}.ta{fill:var(--accent);opacity:.12}
 
 /* v4: charcoal + wide headings + custom colors */
-.dot.g,.bar u.g{background:var(--lent)}.dot.o,.bar u.o{background:var(--owe)}
 .top h1{font-family:'Unbounded','Inter',sans-serif;text-transform:uppercase;font-weight:700;font-size:22px;letter-spacing:-.01em}
-.hero2,.card,.flush{border:1.5px solid var(--line);box-shadow:none}
-.hero2{border-radius:24px}
+.card,.flush{border:1.5px solid var(--line);box-shadow:none}
 .cpick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.cpick label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted)}
 .cpick input{width:100%;height:46px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);padding:3px}
 html[data-mode="dark"] .banner{background:var(--seg);color:var(--ink)}
 html[data-mode="dark"] .fab,html[data-mode="dark"] .tab.add .plus{background:#fff;color:#111}
-/* v4: Unbounded everywhere, scaled for its wide letters */
 body{font-size:13px;letter-spacing:-.005em}
 .top h1{font-size:22px}.pagehead h1{font-size:19px}.card h3{font-size:14px}
 .chip{font-size:12px}.field input,.field select,.field textarea{font-size:14px}
@@ -333,7 +354,6 @@ function applyTheme(){
   var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',vars['bg']);
 }
 
-
 /* Amanah: track money you lend and borrow. Everything is saved on this phone. */
 var KEY='amanah.v1',DAY=86400000,storageOK=true,db=null;
 var uid=function(){return Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-3);};
@@ -355,9 +375,9 @@ var extend=function(a,b){for(var k in b)if(Object.prototype.hasOwnProperty.call(
 var getPath=function(o,p){p=p.split('.');for(var i=0;i<p.length&&o!=null;i++)o=o[p[i]];return o;};
 
 /* ---------- data ---------- */
-function defaults(){return {lang:'en',mode:'auto',palette:'violet',ui:4,bgStyle:'charcoal',cAccent:'',cLent:'#6EA8FE',cOwe:'#FF8A5B',textSize:'normal',pin:'',backupAt:0,remindLang:'en'};}
+function defaults(){return {lang:'en',mode:'dark',palette:'violet',ui:3,bgStyle:'charcoal',cAccent:'',cLent:'#6EA8FE',cOwe:'#FF8A5B',textSize:'normal',pin:'',backupAt:0,remindLang:'en'};}
 function emptyDb(){return {v:1,demo:false,settings:defaults(),people:[],loans:[],activity:[]};}
-function load(){try{var s=localStorage.getItem(KEY);if(s){var o=JSON.parse(s);if(o&&Array.isArray(o.loans)&&Array.isArray(o.people)){o.settings=Object.assign(defaults(),o.settings||{});if(o.settings.ui!==4){o.settings.ui=4;o.settings.mode='auto';}o.activity=o.activity||[];return o;}}}catch(e){storageOK=false;}return null;}
+function load(){try{var s=localStorage.getItem(KEY);if(s){var o=JSON.parse(s);if(o&&Array.isArray(o.loans)&&Array.isArray(o.people)){o.settings=Object.assign(defaults(),o.settings||{});if(o.settings.ui!==3){o.settings.ui=3;o.settings.palette='violet';o.settings.mode='dark';o.settings.bgStyle='charcoal';}o.activity=o.activity||[];return o;}}}catch(e){storageOK=false;}return null;}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(db));}catch(e){storageOK=false;toast(T('Could not save. Storage may be full (photos use a lot).'));}}
 function log(k,v){db.activity.push({id:uid(),ts:Date.now(),k:k,v:v||{}});if(db.activity.length>3000)db.activity.splice(0,db.activity.length-3000);}
 function seed(){
@@ -441,17 +461,42 @@ function loanList(){
   return list.length?list.map(loanRow).join(''):empty(f==='done'?T('Nothing settled yet.'):T('Nothing here. Tap + to add a loan.'));
 }
 
+/* NEW BENTO GRID HERO UI */
 function heroHtml(t){
   var tot=0,pd=0;db.loans.forEach(function(l){if(l.dir==='lent'&&l.status==='open'){tot+=l.amount;pd+=paidOf(l);}});
-  var pct=tot?Math.round(pd/tot*100):0,R=52,C=2*Math.PI*R,off=C*(1-pct/100);
+  var pct=tot?Math.round(pd/tot*100):0,R=38,C=2*Math.PI*R,off=C*(1-pct/100);
   var mx=Math.max(t.lent,t.owe,1),now=Date.now(),pts=[],i;
   for(i=7;i>=0;i--){var at=now-i*7*864e5,v=0;db.loans.forEach(function(l){if(l.status!=='open'||l.ts>at)return;var p=0;l.payments.forEach(function(x){if(x.ts<=at)p+=x.amount;});v+=(l.dir==='lent'?1:-1)*Math.max(0,l.amount-p);});pts.push(v);}
-  var lo=Math.min.apply(0,pts),hi=Math.max.apply(0,pts),rg=(hi-lo)||1,W=300,H=56,d=pts.map(function(v,k){return (k?'L':'M')+(k*W/7).toFixed(1)+' '+(H-4-(v-lo)/rg*(H-12)).toFixed(1);}).join(' ');
-  return '<section class="hero2"><div class="h2top"><div class="ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="'+R+'" class="rt"/><circle cx="60" cy="60" r="'+R+'" class="rf" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 60 60)"/></svg><div class="rc"><b>'+pct+'%</b><span>'+esc(T('repaid'))+'</span></div></div>'+
-  '<div class="h2r"><div class="mac"><div class="mh"><i class="dot g"></i><span>'+esc(T('People owe you'))+'</span></div><b class="num">'+fmt(t.lent)+'</b><div class="bar"><u class="g" style="width:'+Math.round(t.lent/mx*100)+'%"></u></div></div>'+
-  '<div class="mac"><div class="mh"><i class="dot o"></i><span>'+esc(T('You owe'))+'</span></div><b class="num">'+fmt(t.owe)+'</b><div class="bar"><u class="o" style="width:'+Math.round(t.owe/mx*100)+'%"></u></div></div></div></div>'+
-  '<div class="trend"><div class="th"><span>'+esc(T('Net position'))+'</span><b class="num">'+(t.lent-t.owe>=0?'+':'-')+fmt(Math.abs(t.lent-t.owe))+' '+esc(T('Birr'))+'</b></div><svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" aria-hidden="true"><path d="'+d+' L'+W+' '+H+' L0 '+H+'Z" class="ta"/><path d="'+d+'" class="tl"/></svg><small>'+esc(T('Last 8 weeks'))+'</small></div></section>';
+  var lo=Math.min.apply(0,pts),hi=Math.max.apply(0,pts),rg=(hi-lo)||1,W=300,H=44,d=pts.map(function(v,k){return (k?'L':'M')+(k*W/7).toFixed(1)+' '+(H-4-(v-lo)/rg*(H-8)).toFixed(1);}).join(' ');
+  
+  return '<div class="bento-grid">' +
+    '<div class="bento-card" style="align-items:center;justify-content:center;text-align:center;padding:16px;">' +
+      '<div class="ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="'+R+'" class="rt"/><circle cx="60" cy="60" r="'+R+'" class="rf" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 60 60)"/></svg><div class="rc"><b style="font-size:18px">'+pct+'%</b></div></div>' +
+      '<span style="font-size:11px;font-weight:600;color:var(--muted);margin-top:4px;">'+esc(T('repaid'))+'</span>' +
+    '</div>' +
+
+    '<div style="display:flex;flex-direction:column;gap:12px;">' +
+      '<div class="bento-card" style="padding:12px 14px;">' +
+        '<div class="card-label"><i class="dot g" style="margin-right:6px"></i>'+esc(T('People owe you'))+'</div>' +
+        '<b class="num" style="font-size:18px;font-weight:800;color:var(--lent);">'+fmt(t.lent)+'</b>' +
+      '</div>' +
+      '<div class="bento-card" style="padding:12px 14px;">' +
+        '<div class="card-label"><i class="dot o" style="margin-right:6px"></i>'+esc(T('You owe'))+'</div>' +
+        '<b class="num" style="font-size:18px;font-weight:800;color:var(--owe);">'+fmt(t.owe)+'</b>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="bento-card span-2">' +
+      '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">' +
+        '<div class="card-label" style="margin-bottom:0;">'+esc(T('Net position'))+'</div>' +
+        '<b class="num" style="font-size:15px;font-weight:800;">'+(t.lent-t.owe>=0?'+':'-')+fmt(Math.abs(t.lent-t.owe))+' '+esc(T('Birr'))+'</b>' +
+      '</div>' +
+      '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" aria-hidden="true" style="width:100%;height:44px;display:block;"><path d="'+d+' L'+W+' '+H+' L0 '+H+'Z" class="ta"/><path d="'+d+'" class="tl"/></svg>' +
+      '<div style="display:flex;justify-content:space-between;margin-top:4px;"><small style="font-size:11px;">'+esc(T('Last 8 weeks'))+'</small></div>' +
+    '</div>' +
+  '</div>';
 }
+
 function viewHome(){
   var t=totals(),al=alerts(),n=al.length;
   return topbar('Amanah',new Date().toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'}),'<button class="iconbtn" data-a="alerts" aria-label="'+esc(T('Notifications'))+'">'+ic(I.bell,22)+(n?'<span class="badge">'+n+'</span>':'')+'</button>')+
@@ -807,7 +852,7 @@ function loansCsv(){
 function restoreFrom(text){
   var o=null;try{o=JSON.parse(text);}catch(e){}
   if(!o||!Array.isArray(o.loans)||!Array.isArray(o.people))return showErr(T('That is not a valid backup.'));
-  ask({title:T('Restore this backup?'),msg:T('This replaces everything on this phone: {n} loans.',{n:o.loans.length}),ok:T('Yes, restore'),danger:true,fn:function(){o.settings=Object.assign(defaults(),o.settings||{});if(o.settings.ui!==4){o.settings.ui=4;o.settings.mode='auto';}o.activity=o.activity||[];db=o;save();applyTheme();toast(T('Backup restored'));}});
+  ask({title:T('Restore this backup?'),msg:T('This replaces everything on this phone: {n} loans.',{n:o.loans.length}),ok:T('Yes, restore'),danger:true,fn:function(){o.settings=Object.assign(defaults(),o.settings||{});if(o.settings.ui!==3){o.settings.ui=3;o.settings.palette='violet';o.settings.mode='dark';o.settings.bgStyle='charcoal';}o.activity=o.activity||[];db=o;save();applyTheme();toast(T('Backup restored'));}});
 }
 document.addEventListener('click',function(e){
   var t=e.target;if(t.hasAttribute&&t.hasAttribute('data-scrim')){if(state.conf)state.conf=null;else state.sheet=upSheet();render();return;}
