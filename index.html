@@ -1,23 +1,16 @@
 <!doctype html>
-<html lang="en" data-mode="dark">
-<head>
-<meta charset="utf-8">
+<html lang="en" data-mode="dark"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Amanah</title>
-<meta name="theme-color" content="#0D0D0E">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Amanah">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Amanah</title><meta name="theme-color" content="#0D0D0E">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Amanah">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Unbounded:wght@400;500;600;700&family=Noto+Sans+Ethiopic:wght@400;600;700&display=swap">
 <style>
 /* ==========================================================================
-   MACROFACTOR DARK THEME & BENTO GRID SYSTEM
+   AMANAH - MACROFACTOR DARK BENTO DESIGN SYSTEM
    ========================================================================== */
 :root {
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font: 'Inter', 'Noto Sans Ethiopic', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
   --bg: #0D0D0E;
   --surface: #18181A;
   --surface-elevated: #222225;
@@ -25,9 +18,9 @@
   --muted: #8E8E93;
   --line: #27272A;
   --field-line: #3F3F46;
-  --accent: #0E7C66;
-  --accent-ink: #FFFFFF;
-  --accent-soft: rgba(14, 124, 102, 0.2);
+  --accent: #6EA8FE;
+  --accent-ink: #0D0D0E;
+  --accent-soft: rgba(110, 168, 254, 0.18);
   --hero: #18181A;
   --hero-ink: #FFFFFF;
   --hero-muted: #8E8E93;
@@ -39,113 +32,111 @@
   --good: #4CAF50;
   --good-bg: rgba(76, 175, 80, 0.15);
   --seg: #222225;
-  --scrim: rgba(0, 0, 0, 0.75);
+  --scrim: rgba(0, 0, 0, 0.8);
   --lent: #6EA8FE;
   --owe: #FF8A5B;
+  
+  --gA-bg: #0B6150; --gA-fg: #FFFFFF; --gB-bg: #1F4A40; --gB-fg: #BFE6DA;
+  --gC-bg: #4A3A12; --gC-fg: #FFE3A3; --gD-bg: #55301A; --gD-fg: #F4B58A;
+  --gE-bg: #2A3547; --gE-fg: #C5CEDB;
 }
 
 * { box-sizing: border-box; }
 html { color-scheme: dark; background: var(--bg); }
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--font);
-  font-size: 14px;
-  line-height: 1.4;
-  padding-inline: 16px;
-  padding-block: calc(16px + env(safe-area-inset-top, 0px)) 112px;
-  -webkit-text-size-adjust: 100%;
+  margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font);
+  font-size: 13px; line-height: 1.4; padding-inline: 16px;
+  padding-block: calc(16px + env(safe-area-inset-top,0px)) 112px; -webkit-text-size-adjust: 100%;
 }
+html[data-size="large"] body { zoom: 1.12; }
 body.nonav { padding-bottom: 40px; }
 #app { max-width: 480px; margin-inline: auto; display: flex; flex-direction: column; gap: 14px; }
-h1, h2, h3, p { margin: 0; letter-spacing: -0.02em; }
-button, input, select, textarea { font: inherit; color: inherit; }
+h1,h2,h3,p { margin: 0; letter-spacing: -0.02em; }
+button,input,select,textarea { font: inherit; color: inherit; font-family: inherit; }
 button { cursor: pointer; border: none; background: transparent; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 small { font-size: 12px; color: var(--muted); }
 .num { font-variant-numeric: tabular-nums; font-weight: 600; letter-spacing: -0.01em; }
 
-/* Header */
+/* Header & Top Bar */
 .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.top h1 { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 22px; text-transform: uppercase; letter-spacing: -0.02em; }
-.top .sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.top h1 { font-family: 'Unbounded', sans-serif; text-transform: uppercase; font-weight: 700; font-size: 22px; letter-spacing: -0.01em; }
 .top .acts { display: flex; gap: 8px; flex: none; }
-
+.sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
 .pagehead { display: flex; align-items: center; gap: 12px; }
-.pagehead h1 { font-size: 19px; font-weight: 800; flex: 1; min-width: 0; }
+.pagehead h1 { font-size: 19px; font-weight: 800; flex: 1; min-width: 0; overflow-wrap: anywhere; }
 
 .iconbtn {
-  flex: none; width: 42px; height: 42px; border-radius: 50%;
-  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
-  display: flex; align-items: center; justify-content: center; padding: 0; position: relative;
+  flex: none; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line);
+  background: var(--surface); color: var(--ink); display: flex; align-items: center; justify-content: center; padding: 0; position: relative;
 }
 .iconbtn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .badge {
-  position: absolute; top: -2px; right: -2px; min-width: 18px; height: 18px;
-  border-radius: 9px; background: var(--bad); color: #fff; font-size: 11px; font-weight: 800;
-  display: flex; align-items: center; justify-content: center; padding: 0 4px;
+  position: absolute; top: -2px; right: -2px; min-width: 18px; height: 18px; border-radius: 9px;
+  background: var(--bad); color: #fff; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; padding: 0 4px;
 }
 
 /* Bento Grid System */
 .bento-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; width: 100%; }
 .bento-card {
   background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
-  padding: 16px; display: flex; flex-direction: column; justify-content: space-between;
-  position: relative; overflow: hidden;
+  padding: 16px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden;
 }
 .bento-card.span-2 { grid-column: span 2; }
 .bento-card .card-label {
   font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase;
-  letter-spacing: 0.05em; margin-bottom: 8px; display: flex; align-items: center;
+  letter-spacing: 0.05em; margin-bottom: 6px; display: flex; align-items: center;
 }
 
-/* Fixed Repayment Progress Ring */
-.ring-container {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  width: 100%; height: 100%; min-height: 110px;
-}
-.ring { position: relative; width: 84px; height: 84px; flex: none; }
+/* Ring Fix */
+.ring-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 100px; }
+.ring { position: relative; width: 88px; height: 88px; flex: none; }
 .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-.rt { fill: none; stroke: var(--line); stroke-width: 8; }
-.rf { fill: none; stroke: var(--lent); stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease; }
+.rt { fill: none; stroke: var(--seg); stroke-width: 7; }
+.rf { fill: none; stroke: var(--lent); stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease; }
 .rc { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .rc b { font-size: 18px; font-weight: 800; color: var(--ink); line-height: 1; }
 .rc span { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; margin-top: 4px; }
 
-/* Fixed Sparkline Graph */
-.sparkline-container { width: 100%; height: 48px; margin-top: 6px; }
+/* Sparkline Fix */
+.sparkline-container { width: 100%; height: 44px; margin-top: 4px; }
 .sparkline-svg { width: 100%; height: 100%; display: block; overflow: visible; }
 .tl { fill: none; stroke: var(--lent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.ta { fill: url(#sparkline-grad); opacity: 0.3; }
+.ta { fill: url(#sparkline-grad); opacity: 0.35; }
 
-/* Buttons & Segmented Controls */
+/* Structural Controls */
+.card, .flush { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 16px; }
+.card.flush { padding-block: 4px; }
+.card h3 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+.cardhead { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; }
+
 .btn {
-  min-height: 48px; border-radius: 14px; border: 1px solid var(--line);
-  background: var(--surface); color: var(--ink); font-weight: 700; padding: 0 16px;
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-align: center;
+  min-height: 48px; border-radius: 14px; border: 1px solid var(--field-line); background: var(--surface);
+  color: var(--ink); font-weight: 700; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-align: center;
 }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .btn.danger { color: var(--bad); border-color: var(--bad); }
 .btn.armed, .btn.dangerfill { background: var(--bad); color: #fff; border-color: var(--bad); }
 .btn.sm { min-height: 40px; font-size: 13px; }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
 .btn.wide { width: 100%; }
 .btns { display: flex; gap: 12px; } .btns > * { flex: 1; }
+
+.chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chips[role="group"] { flex-wrap: wrap; overflow: visible; }
+.chip {
+  flex: none; min-height: 40px; min-width: 44px; padding: 0 16px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--surface); font-weight: 600; font-size: 12px; color: var(--muted);
+}
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
 .seg { display: flex; gap: 4px; padding: 4px; border-radius: 14px; background: var(--seg); }
 .seg button {
   flex: 1; min-height: 40px; border-radius: 10px; border: none; background: transparent;
-  font-weight: 700; font-size: 13px; padding: 0 8px; color: var(--muted); transition: all 0.2s;
+  font-weight: 700; font-size: 13px; padding: 0 6px; color: var(--muted); transition: all 0.2s;
 }
-.seg button[aria-pressed="true"] { background: var(--surface-elevated); color: var(--ink); box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
-
-.chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
-.chips::-webkit-scrollbar { display: none; }
-.chip {
-  flex: none; min-height: 38px; min-width: 44px; padding: 0 16px; border-radius: 999px;
-  border: 1px solid var(--line); background: var(--surface); font-weight: 600; font-size: 12px; color: var(--muted);
-}
-.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--surface-elevated); color: var(--ink); }
 
 .search {
   display: flex; align-items: center; gap: 10px; min-height: 46px; border-radius: 14px;
@@ -153,33 +144,31 @@ small { font-size: 12px; color: var(--muted); }
 }
 .search input { flex: 1; min-width: 0; border: none; background: transparent; outline: none; min-height: 44px; color: var(--ink); }
 
-/* Card & List Rows */
-.card, .flush { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 16px; }
-.card.flush { padding-block: 2px; }
 .row {
-  display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 0; border: none;
+  display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 0; border: none;
   border-bottom: 1px solid var(--line); background: transparent; text-align: left; min-height: 60px; color: var(--ink);
 }
 .row:last-child { border-bottom: none; }
 .row .grow { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.row .grow b { font-weight: 700; overflow-wrap: anywhere; font-size: 14px; }
+.row .grow b { font-weight: 700; overflow-wrap: anywhere; }
 .row .end { text-align: right; display: flex; flex-direction: column; gap: 2px; align-items: flex-end; }
-.row .end b { font-weight: 800; font-size: 15px; }
+.row .end b { font-weight: 800; }
 
 .tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
 .tag.bad { background: var(--bad-bg); color: var(--bad); }
 .tag.warn { background: var(--warn-bg); color: var(--warn); }
 .tag.good { background: var(--good-bg); color: var(--good); }
+.tag.info { background: var(--accent-soft); color: var(--accent); }
 .tag.gray { background: var(--seg); color: var(--muted); }
-.tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 3px; }
 
 .banner {
   display: flex; align-items: center; gap: 12px; background: var(--warn-bg); color: var(--warn);
-  border-radius: 14px; padding: 12px 14px; font-size: 13px; font-weight: 600;
+  border-radius: 16px; padding: 12px 14px; font-size: 13px; font-weight: 600;
 }
 .banner span { flex: 1; }
 
-.empty { padding: 24px 8px; text-align: center; color: var(--muted); font-size: 14px; }
+.empty { padding: 22px 8px; text-align: center; color: var(--muted); font-size: 13px; }
 .field { display: flex; flex-direction: column; gap: 6px; font-size: 12px; font-weight: 600; color: var(--muted); }
 .field input, .field select, .field textarea {
   width: 100%; min-height: 46px; border-radius: 12px; border: 1px solid var(--field-line);
@@ -189,72 +178,99 @@ small { font-size: 12px; color: var(--muted); }
 .form { display: flex; flex-direction: column; gap: 12px; }
 .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 
+.sum { display: flex; flex-direction: column; gap: 10px; }
+.sum .total { border-top: 1px solid var(--line); padding-top: 12px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.sum .total b { font-size: 24px; font-weight: 800; color: var(--accent); }
+.sum .total b.out { color: var(--warn); }
+.err { background: var(--bad-bg); color: var(--bad); border-radius: 12px; padding: 10px 12px; font-size: 13px; font-weight: 600; }
+
 .scrim { position: fixed; inset: 0; background: var(--scrim); display: flex; align-items: flex-end; justify-content: center; z-index: 30; }
 .scrim.center { align-items: center; padding: 16px; z-index: 50; }
 .panel {
   width: 100%; max-width: 480px; max-height: 92%; overflow-y: auto; background: var(--surface);
-  color: var(--ink); border-radius: 24px 24px 0 0; padding: 20px 16px calc(24px + env(safe-area-inset-bottom,0px));
+  color: var(--ink); border-radius: 24px 24px 0 0; padding: 16px 16px calc(24px + env(safe-area-inset-bottom,0px));
   display: flex; flex-direction: column; gap: 14px; outline: none; border-top: 1px solid var(--line);
 }
 .scrim.center .panel { border-radius: 24px; border: 1px solid var(--line); max-height: 86%; }
-.panel .head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.panel h2 { font-size: 18px; font-weight: 800; }
+.panel .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.panel h2 { font-size: 17px; font-weight: 800; overflow-wrap: anywhere; }
 
-/* Bottom Floating Navigation */
 .nav {
-  position: fixed; left: 0; right: 0; bottom: 0; background: rgba(24, 24, 26, 0.92);
+  position: fixed; left: 0; right: 0; bottom: 0; background: rgba(24, 24, 26, 0.95);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid var(--line);
   z-index: 20; padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
 }
-.nav .in { max-width: 480px; margin-inline: auto; display: flex; justify-content: space-around; align-items: center; }
+.nav .in { max-width: 480px; margin-inline: auto; display: flex; justify-content: space-around; align-items: flex-start; }
 .nav button {
-  width: 66px; min-height: 52px; border: none; background: transparent;
-  display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px;
-  font-weight: 600; color: var(--muted); padding: 0;
+  width: 66px; min-height: 52px; border: none; background: transparent; display: flex; flex-direction: column;
+  align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: var(--muted); padding: 0;
 }
 .nav button[aria-current="page"] { color: var(--ink); font-weight: 700; }
 .nav .mid { margin-top: -24px; }
 .nav .mid .disc {
   width: 52px; height: 52px; border-radius: 50%; background: #FFFFFF; color: #0D0D0E;
-  display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(255,255,255,0.25);
+  display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(255,255,255,0.2);
 }
 
 .toast {
   position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(90px + env(safe-area-inset-bottom,0px));
-  background: var(--surface-elevated); border: 1px solid var(--line); color: var(--ink);
-  padding: 12px 18px; border-radius: 14px; font-size: 13px; font-weight: 600; z-index: 60;
-  max-width: calc(100% - 32px); text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  background: var(--surface-elevated); border: 1px solid var(--line); color: var(--ink); padding: 12px 18px;
+  border-radius: 14px; font-size: 13px; font-weight: 600; z-index: 60; max-width: calc(100% - 32px); text-align: center;
 }
 .kv { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; font-size: 13px; }
 .kv span:first-child { color: var(--muted); }
-.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-.dot.g { background: var(--lent); } .dot.o { background: var(--owe); }
-
+.swatches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.swatch {
+  border: 2px solid var(--line); border-radius: 16px; background: var(--surface); padding: 10px;
+  display: flex; flex-direction: column; gap: 8px; align-items: flex-start; color: var(--ink); min-height: 44px;
+}
+.swatch[aria-pressed="true"] { border-color: var(--accent); }
+.swatch .dots { display: flex; gap: 4px; }
+.swatch .dots i { width: 22px; height: 22px; border-radius: 50%; display: block; border: 1px solid rgba(128,128,128,.4); }
+.swatch span { font-size: 12px; font-weight: 700; }
+.cpick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.cpick label { display: flex; flex-direction: column; gap: 6px; font-size: 11px; color: var(--muted); }
+.cpick input { width: 100%; height: 42px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 2px; }
+.qa { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.qa button {
+  min-height: 76px; border-radius: 18px; border: 1px solid var(--line); background: var(--surface);
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 6px; padding: 12px 14px; font-weight: 700; color: var(--ink); text-align: left;
+}
+.qa button .ci { color: var(--accent); }
 .pad { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 320px; width: 100%; margin-inline: auto; }
 .pad button { min-height: 60px; border-radius: 16px; font-size: 22px; font-weight: 700; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
 .dots { display: flex; gap: 14px; justify-content: center; }
 .dots i { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--line); display: block; }
 .dots i.on { background: var(--ink); border-color: var(--ink); }
-.err { background: var(--bad-bg); color: var(--bad); border-radius: 12px; padding: 10px 12px; font-size: 13px; font-weight: 600; }
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.dot.g { background: var(--lent); } .dot.o { background: var(--owe); }
+.progress { height: 6px; border-radius: 3px; background: var(--seg); overflow: hidden; }
+.progress i { display: block; height: 6px; background: var(--accent); }
+.daterow { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+.daterow label { flex: 1; min-width: 140px; display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 600; }
+.daterow input { width: 100%; box-sizing: border-box; min-height: 42px; padding: 0 12px; border: 1px solid var(--field-line); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; }
+.daygroup { margin: 16px 4px 6px; font-size: 12px; font-weight: 700; color: var(--ink); }
+.lr .row { gap: 14px; }
+.lr .row .grow { flex: 1 1 0; min-width: 0; padding-right: 6px; }
+.lr .row .grow small { overflow-wrap: anywhere; word-break: break-word; }
+.lr .row .end { flex: none; min-width: 104px; padding-right: 2px; }
 .lockbox { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
-</style>
-</head>
-<body>
-<div id="app"></div>
-<div id="sheetRoot"></div>
-<div id="confRoot"></div>
+.link { min-height: 44px; padding: 0 4px; border: none; background: transparent; color: var(--accent); font-weight: 700; font-size: 13px; }
+</style></head><body>
+<div id="app"></div><div id="sheetRoot"></div><div id="confRoot"></div>
 <input type="file" id="photoIn" accept="image/*" hidden>
 <nav class="nav" id="nav" aria-label="Main"><div class="in" id="navIn"></div></nav>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
-
 <script>
 window.__SW__=true;
 (function(){
 'use strict';
+
 var ic=function(d,s,w){s=s||24;w=w||1.8;return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+w+'" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+d+'</svg>';};
 var I={
   home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
+  x:'<path d="M6 6l12 12M18 6L6 18"/>',
   search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
   check:'<path d="M5 13l4 4L19 7"/>',
   bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/>',
@@ -266,9 +282,32 @@ var I={
   chev:'<path d="M9 6l6 6-6 6"/>',
   gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
   users:'<circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6"/>',
-  x:'<path d="M6 6l12 12M18 6L6 18"/>',
   camera:'<path d="M3 8h4l2-3h6l2 3h4v12H3z"/><circle cx="12" cy="13" r="4"/>'
 };
+
+var MODES={
+  light:{'bg':'#F6F6F7','surface':'#FFFFFF','ink':'#0F1B2D','muted':'#566275','line':'#E1E6EC','field-line':'#8793A6','seg':'#E3E8EE','scrim':'rgba(15,27,45,.5)',
+    'bad':'#B42318','bad-bg':'#FDE7E5','warn':'#7A4100','warn-bg':'#FFEBCF','good':'#0B6150','good-bg':'#E2F3EE'},
+  dark:{'bg':'#0D0D0E','surface':'#18181A','ink':'#FFFFFF','muted':'#8E8E93','line':'#27272A','field-line':'#3F3F46','seg':'#222225','scrim':'rgba(0,0,0,.8)',
+    'bad':'#FF5252','bad-bg':'rgba(255,82,82,.15)','warn':'#FFB300','warn-bg':'rgba(255,179,0,.15)','good':'#4CAF50','good-bg':'rgba(76,175,80,.15)'}
+};
+
+var PALETTES={
+  violet:{name:'Violet',light:{'accent':'#6D4FD8','accent-ink':'#FFFFFF','accent-soft':'#EFEAFC'},dark:{'accent':'#6EA8FE','accent-ink':'#0D0D0E','accent-soft':'rgba(110,168,254,.18)'}},
+  teal:{name:'Teal',light:{'accent':'#0E7C66','accent-ink':'#FFFFFF','accent-soft':'#E2F3EE'},dark:{'accent':'#3CC5A3','accent-ink':'#04231B','accent-soft':'#12342C'}},
+  mono:{name:'Mono',light:{'accent':'#4F5FE8','accent-ink':'#FFFFFF','accent-soft':'#E9ECFF'},dark:{'accent':'#8B9CFF','accent-ink':'#0B0E17','accent-soft':'#1E2547'}}
+};
+
+function isDark(){var m=db.settings.mode;return m==='dark'||(m==='auto'&&!!window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches);}
+function applyTheme(){
+  var s=db.settings,dk=isDark(),root=document.documentElement,p=PALETTES[s.palette]||PALETTES.violet,vars=extend(extend({},dk?MODES.dark:MODES.light),p[dk?'dark':'light']);
+  var ac=s.cAccent;if(/^#[0-9a-f]{6}$/i.test(ac||'')){vars.accent=ac;}
+  vars.lent=s.cLent||'#6EA8FE';vars.owe=s.cOwe||'#FF8A5B';
+  for(var k in vars)root.style.setProperty('--'+k,vars[k]);
+  root.setAttribute('data-mode',dk?'dark':'light');
+  root.setAttribute('data-size',s.textSize==='large'?'large':'normal');
+  root.setAttribute('lang',s.lang==='am'?'am':s.lang==='om'?'om':'en');
+}
 
 var KEY='amanah.v1',DAY=86400000,storageOK=true,db=null;
 var uid=function(){return Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-3);};
@@ -286,11 +325,12 @@ var ymd=function(t){var d=new Date(t);return d.getFullYear()+'-'+pad(d.getMonth(
 var fromYmd=function(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||'');return m?new Date(+m[1],+m[2]-1,+m[3]).getTime():0;};
 var fmtDate=function(t){return new Date(t).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});};
 var fmtTime=function(t){return new Date(t).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});};
+var extend=function(a,b){for(var k in b)if(Object.prototype.hasOwnProperty.call(b,k))a[k]=b[k];return a;};
 
-function defaults(){return {lang:'en',mode:'dark',palette:'teal',ui:3,bgStyle:'charcoal',cAccent:'',cLent:'#6EA8FE',cOwe:'#FF8A5B',textSize:'normal',pin:'',backupAt:0,remindLang:'en'};}
+function defaults(){return {lang:'en',mode:'dark',palette:'violet',ui:3,bgStyle:'charcoal',cAccent:'',cLent:'#6EA8FE',cOwe:'#FF8A5B',textSize:'normal',pin:'',backupAt:0,remindLang:'en'};}
 function emptyDb(){return {v:1,demo:false,settings:defaults(),people:[],loans:[],activity:[]};}
 function load(){try{var s=localStorage.getItem(KEY);if(s){var o=JSON.parse(s);if(o&&Array.isArray(o.loans)&&Array.isArray(o.people)){o.settings=Object.assign(defaults(),o.settings||{});o.activity=o.activity||[];return o;}}}catch(e){storageOK=false;}return null;}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(db));}catch(e){storageOK=false;toast(T('Could not save. Storage may be full.'));}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(db));}catch(e){storageOK=false;toast(T('Could not save. Storage full.'));}}
 function log(k,v){db.activity.push({id:uid(),ts:Date.now(),k:k,v:v||{}});if(db.activity.length>3000)db.activity.splice(0,db.activity.length-3000);}
 
 function seed(){
@@ -340,13 +380,14 @@ function fInput(id,label,o){o=o||{};return '<label class="field" for="'+id+'">'+
 function fArea(id,label,o){o=o||{};return '<label class="field" for="'+id+'">'+esc(label)+'<textarea id="'+id+'" data-f>'+esc(F(id,o.def))+'</textarea></label>';}
 function seg(opts,cur,a){return '<div class="seg" role="group">'+opts.map(function(o){return '<button type="button" data-a="'+a+'" data-v="'+esc(o.v)+'" aria-pressed="'+(String(cur)===String(o.v))+'">'+esc(o.t)+'</button>';}).join('')+'</div>';}
 function chips(opts,cur,a){return '<div class="chips" role="group">'+opts.map(function(o){return '<button type="button" class="chip" data-a="'+a+'" data-v="'+esc(o.v)+'" aria-pressed="'+(String(cur)===String(o.v))+'">'+esc(o.t)+'</button>';}).join('')+'</div>';}
-function pagehead(t,right){return '<header class="pagehead"><button class="iconbtn" data-a="back" aria-label="'+esc(T('Back'))+'">'+ic(I.back,22,2)+'</button><h1>'+esc(t)+'</h1>'+(right||'')+'</header>';}
+function pagehead(t,right){return '<header class="pagehead"><button class="iconbtn" data-a="back" aria-label="'+esc(T('Back'))+'">'+ic(I.back,20,2)+'</button><h1>'+esc(t)+'</h1>'+(right||'')+'</header>';}
 function topbar(t,sub,right){return '<header class="top"><div><h1>'+esc(t)+'</h1>'+(sub?'<p class="sub">'+esc(sub)+'</p>':'')+'</div>'+(right?'<div class="acts">'+right+'</div>':'')+'</header>';}
 function empty(t){return '<p class="empty">'+esc(t)+'</p>';}
 
 function loanRow(l){
   var p=person(l.pid),tg=loanTag(l),b=balOf(l),pc=paidOf(l);
-  return '<button class="row" data-a="loan" data-id="'+l.id+'"><span class="grow"><b>'+esc(p.name)+'</b><small>'+esc(l.note||fmtDate(l.ts))+'</small>'+(tg?'<span class="tags">'+tag(tg.t,tg.k)+'</span>':'')+'</span><span class="end"><b class="num">'+fmt(b>0&&l.status==='open'?b:l.amount)+'</b><small>'+(pc>0&&b>0?esc(T('of {n}',{n:fmt(l.amount)})):esc(T('Birr')))+'</small></span></button>';
+  return '<button class="row" data-a="loan" data-id="'+l.id+'"><span class="grow"><b>'+esc(p.name)+'</b><small>'+esc(l.note||fmtDate(l.ts))+'</small>'+(tg?'<span class="tags">'+tag(tg.t,tg.k)+'</span>':'')+
+    (pc>0&&b>0?'<span class="progress" style="margin-top:6px"><i style="width:'+Math.min(100,Math.round(pc/l.amount*100))+'%"></i></span>':'')+'</span><span class="end"><b class="num">'+fmt(b>0&&l.status==='open'?b:l.amount)+'</b><small>'+(pc>0&&b>0?esc(T('of {n}',{n:fmt(l.amount)})):esc(T('Birr')))+'</small></span></button>';
 }
 
 function loanList(){
@@ -363,15 +404,12 @@ function loanList(){
   return list.length?list.map(loanRow).join(''):empty(f==='done'?T('Nothing settled yet.'):T('Nothing here. Tap + to add a loan.'));
 }
 
-/* REFACTORED BENTO HERO AREA WITH PERFECT SVG RING AND SPARKLINE */
+/* PERFECT REFACTORED BENTO CARD (Ring + Sparkline fixed) */
 function heroHtml(t){
   var tot=0,pd=0;db.loans.forEach(function(l){if(l.dir==='lent'&&l.status==='open'){tot+=l.amount;pd+=paidOf(l);}});
   var pct=tot?Math.round(pd/tot*100):0;
-  
-  // Clean SVG Circle Ring Math
   var R=38, C=2*Math.PI*R, strokeDash=C.toFixed(1), strokeOffset=(C*(1-pct/100)).toFixed(1);
 
-  // Sparkline Curve Calculation
   var now=Date.now(), pts=[], i;
   for(i=7;i>=0;i--){
     var at=now-i*7*864e5, v=0;
@@ -382,11 +420,10 @@ function heroHtml(t){
     });
     pts.push(v);
   }
-  var lo=Math.min.apply(0,pts), hi=Math.max.apply(0,pts), rg=(hi-lo)||1, W=300, H=48;
+  var lo=Math.min.apply(0,pts), hi=Math.max.apply(0,pts), rg=(hi-lo)||1, W=300, H=44;
   var d=pts.map(function(v,k){ return (k?'L':'M')+(k*W/7).toFixed(1)+' '+(H-6-(v-lo)/rg*(H-12)).toFixed(1); }).join(' ');
 
   return '<div class="bento-grid">' +
-    /* Card 1: Repayment Ring */
     '<div class="bento-card" style="align-items:center;justify-content:center;padding:12px;">' +
       '<div class="ring-container">' +
         '<div class="ring">' +
@@ -399,7 +436,6 @@ function heroHtml(t){
       '</div>' +
     '</div>' +
 
-    /* Card 2 & 3: Totals */
     '<div style="display:flex;flex-direction:column;gap:12px;">' +
       '<div class="bento-card" style="padding:12px 14px;">' +
         '<div class="card-label"><i class="dot g" style="margin-right:6px"></i>'+esc(T('People owe you'))+'</div>' +
@@ -411,7 +447,6 @@ function heroHtml(t){
       '</div>' +
     '</div>' +
 
-    /* Card 4: Net Position & Sparkline Graph */
     '<div class="bento-card span-2" style="padding:14px 16px;">' +
       '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px;">' +
         '<div class="card-label" style="margin-bottom:0;">'+esc(T('Net position'))+'</div>' +
@@ -431,7 +466,7 @@ function heroHtml(t){
 
 function viewHome(){
   var t=totals(),al=alerts(),n=al.length;
-  return topbar('Amanah',new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}),'<button class="iconbtn" data-a="alerts" aria-label="'+esc(T('Notifications'))+'">'+ic(I.bell,20)+(n?'<span class="badge">'+n+'</span>':'')+'</button>')+
+  return topbar('Amanah',new Date().toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'}),'<button class="iconbtn" data-a="alerts" aria-label="'+esc(T('Notifications'))+'">'+ic(I.bell,20)+(n?'<span class="badge">'+n+'</span>':'')+'</button>')+
   heroHtml(t)+
   (n?'<button class="banner" data-a="alerts" style="width:100%;text-align:left;border:none"><span>'+esc(T('{n} repayments need attention',{n:n}))+'</span>'+ic(I.chev,18)+'</button>':'')+
   seg([{v:'lent',t:T('I lent')},{v:'borrowed',t:T('I borrowed')}],state.side,'side')+
@@ -440,35 +475,102 @@ function viewHome(){
   '<section class="card flush" id="list">'+loanList()+'</section>';
 }
 
+function sideBal(pid,dir){var n=0;db.loans.forEach(function(l){if(l.pid===pid&&l.dir===dir&&active(l))n+=balOf(l);});return n;}
+function personNet(pid){var n=0;db.loans.forEach(function(l){if(l.pid===pid&&active(l))n+=l.dir==='lent'?balOf(l):-balOf(l);});return n;}
+
 function peopleList(){
   var q=(state.pq||'').trim().toLowerCase(),t=state.ptab||'all';
   var rows=db.people.filter(function(p){
     if(q&&(p.name||'').toLowerCase().indexOf(q)<0&&(p.phone||'').indexOf(q)<0)return false;
-    return true;
-  }).map(function(p){
-    var net=0; db.loans.forEach(function(l){if(l.pid===p.id&&active(l))net+=l.dir==='lent'?balOf(l):-balOf(l);});
-    var col=net>0?'var(--good)':net<0?'var(--bad)':'var(--ink)';
-    return '<button class="row" data-a="person" data-id="'+p.id+'"><span class="grow"><b>'+esc(p.name)+'</b><small>'+esc(p.phone||T('No phone'))+'</small></span><span class="end"><b class="num" style="color:'+col+'">'+fmt(Math.abs(net))+'</b><small>'+esc(net>0?T('owes you'):net<0?T('you owe'):T('settled'))+'</small></span></button>';
+    return t==='owes'?sideBal(p.id,'lent')>0:t==='owe'?sideBal(p.id,'borrowed')>0:true;
+  }).map(function(p){var a=t==='owes'?sideBal(p.id,'lent'):t==='owe'?sideBal(p.id,'borrowed'):personNet(p.id);return {p:p,n:a,k:Math.abs(a)};})
+  .sort(function(a,b){return b.k-a.k;}).map(function(r){
+    var p=r.p,n=r.n;
+    var col=t==='owes'?'var(--good)':t==='owe'?'var(--bad)':(n>0?'var(--good)':n<0?'var(--bad)':'var(--ink)');
+    var lab=t==='owes'?T('owes you'):t==='owe'?T('you owe'):(n>0?T('owes you'):n<0?T('you owe'):T('settled'));
+    return '<button class="row" data-a="person" data-id="'+p.id+'"><span class="grow"><b>'+esc(p.name)+'</b><small>'+esc(p.phone||T('No phone'))+'</small></span><span class="end"><b class="num" style="color:'+col+'">'+fmt(Math.abs(n))+'</b><small>'+esc(lab)+'</small></span></button>';
   }).join('');
   return rows||empty(T('No people found.'));
 }
 
 function viewPeople(){
+  var t=state.ptab||'all';
+  var chip=function(v,label){return '<button type="button" class="chip" data-a="ptab" data-v="'+v+'" aria-pressed="'+(t===v?'true':'false')+'">'+esc(label)+'</button>';};
   return topbar(T('People'),T('{n} people',{n:db.people.length}))+
   '<label class="search">'+ic(I.search,18)+'<input id="pq" type="search" placeholder="'+esc(T('Search people'))+'" value="'+esc(state.pq||'')+'" data-live="plist" autocomplete="off"></label>'+
+  '<div class="chips" role="group">'+chip('all',T('All'))+chip('owes',T('Owes me'))+chip('owe',T('I owe'))+'</div>'+
   '<section class="card flush" id="plist">'+peopleList()+'</section>';
 }
 
 function viewAlerts(){
   var al=alerts();
-  return pagehead(T('Notifications'))+'<section class="card flush" style="margin-top:12px;">'+(al.length?al.map(function(a){return '<button class="row" data-a="loan" data-id="'+a.id+'"><span style="width:8px;height:8px;border-radius:50%;flex:none;background:'+(a.sev==='bad'?'var(--bad)':'var(--warn)')+'"></span><span class="grow"><b>'+esc(a.t)+'</b><small>'+esc(a.s)+'</small></span>'+ic(I.chev,18)+'</button>';}).join(''):empty(T('Nothing is due soon.')))+'</section>';
+  return pagehead(T('Notifications'))+'<p class="sub">'+esc(T('Repayments due soon or late'))+'</p><section class="card flush" style="margin-top:8px">'+(al.length?al.map(function(a){return '<button class="row" data-a="loan" data-id="'+a.id+'"><span style="width:8px;height:8px;border-radius:50%;flex:none;background:'+(a.sev==='bad'?'var(--bad)':'var(--warn)')+'"></span><span class="grow"><b>'+esc(a.t)+'</b><small>'+esc(a.s)+'</small></span>'+ic(I.chev,18)+'</button>';}).join(''):empty(T('Nothing is due soon.')))+'</section>';
 }
 
+/* RESTORED FULL SETTINGS PAGE */
+function setRow(v,t,sub){return '<button type="button" class="row" data-a="setp" data-v="'+v+'"><span class="grow"><b>'+esc(t)+'</b><small>'+esc(sub)+'</small></span>'+ic(I.chev,18)+'</button>';}
+
 function viewSettings(){
-  return topbar(T('Settings'))+'<section class="card flush" style="margin-top:12px;">'+
-  '<button type="button" class="row" data-a="backup"><span class="grow"><b>'+esc(T('Download Backup'))+'</b><small>'+esc(T('Save your data locally'))+'</small></span>'+ic(I.download,18)+'</button>'+
-  '<button type="button" class="row" data-a="resetAll"><span class="grow"><b style="color:var(--bad)">'+esc(T('Erase Everything'))+'</b></span></button>'+
+  var s=db.settings,ln={en:'English',am:'አማርኛ',om:'Afaan Oromoo'};
+  return topbar(T('Settings'))+'<section class="card flush">'+
+    setRow('language',T('Language'),ln[s.remindLang]||'English')+
+    setRow('look',T('Appearance and colors'),T('Theme, colors, text size'))+
+    setRow('security',T('Security'),s.pin?T('PIN is on'):T('PIN is off'))+
+    setRow('backup',T('Backup and data'),s.backupAt?T('Last backup: {d}',{d:fmtDate(s.backupAt)}):T('No backup yet'))+
+    setRow('about',T('About'),'Amanah')+
   '</section>';
+}
+
+function viewSetPage(k){
+  var s=db.settings,sw=Object.keys(PALETTES).map(function(k){var p=PALETTES[k],c=p[isDark()?'dark':'light'];return '<button type="button" class="swatch" data-a="palette" data-v="'+k+'" aria-pressed="'+(s.palette===k)+'"><span class="dots"><i style="background:'+c.accent+'"></i><i style="background:'+c['accent-soft']+'"></i></span><span>'+esc(p.name)+'</span></button>';}).join('');
+  var ttl={language:T('Language'),look:T('Appearance and colors'),security:T('Security'),backup:T('Backup and data'),about:T('About')}[k]||T('Settings');
+  var body=k==='language'?'<section class="card form"><h3 style="margin:0">'+esc(T('Reminder message language'))+'</h3>'+seg([{v:'en',t:'English'},{v:'am',t:'አማርኛ'},{v:'om',t:'Afaan Oromoo'}],s.remindLang,'rlang')+'</section>'
+  :k==='look'?'<section class="card form"><h3 style="margin:0">'+esc(T('Appearance'))+'</h3>'+seg([{v:'auto',t:T('Automatic')},{v:'light',t:T('Light')},{v:'dark',t:T('Dark')}],s.mode,'mode')+'<div class="swatches">'+sw+'</div>'+seg([{v:'normal',t:T('Normal text')},{v:'large',t:T('Large text')}],s.textSize,'size')+'</section>'+'<section class="card form"><h3 style="margin:0">'+esc(T('Colors'))+'</h3><div class="cpick"><label>'+esc(T('Main color'))+'<input type="color" data-col="cAccent" value="'+(s.cAccent||'#6EA8FE')+'"></label><label>'+esc(T('People owe you'))+'<input type="color" data-col="cLent" value="'+s.cLent+'"></label><label>'+esc(T('You owe'))+'<input type="color" data-col="cOwe" value="'+s.cOwe+'"></label></div>'+btn('colReset',T('Reset colors'),'')+'</section>'
+  :k==='security'?'<section class="card form"><h3 style="margin:0">'+esc(T('App lock'))+'</h3>'+(s.pin?btns(btn('pinSet',T('Change PIN'),''),btn('pinOff',T('Turn off'),'danger')):btn('pinSet',T('Set a PIN'),''))+'</section>'
+  :k==='backup'?'<section class="card form"><h3 style="margin:0">'+esc(T('Backup'))+'</h3>'+btn('backup',T('Download backup file'),'',{icon:I.download})+btn('copyBackup',T('Copy backup text'),'')+btn('csv',T('Export loans to Excel'),'')+'<label class="field" for="bk_in"><span>'+esc(T('Restore: paste backup text'))+'</span><textarea id="bk_in" data-f>'+esc(F('bk_in'))+'</textarea></label>'+errBox()+btn('restore',T('Restore from text'),'')+'<input type="file" id="bk_file" accept=".json,text/plain" hidden>'+btn('pickBackup',T('Restore from file'),'')+'</section>'+'<section class="card form">'+btn('resetAll',T('Erase everything'),'danger')+'</section>'
+  :'<section class="card form"><h3 style="margin:0">Amanah</h3><small>'+esc(T('Track money you lend and borrow. Everything is saved locally on this phone.'))+'</small></section>';
+  return pagehead(ttl)+body;
+}
+
+/* RESTORED ACTIVITY LOG TAB */
+function actRange(){
+  var t=startOfDay(Date.now()),f=state.actFilter,s,e;
+  if(f==='all')return {};
+  if(f==='today')return {s:t,e:addDays(t,1)};
+  if(f==='yesterday')return {s:addDays(t,-1),e:t};
+  if(f==='date'){s=fromYmd(state.actDate);return s?{s:s,e:addDays(s,1)}:{bad:1};}
+  s=fromYmd(state.actFrom);e=fromYmd(state.actTo);
+  if(!s||!e)return {bad:1};
+  return {s:s,e:addDays(e,1)};
+}
+
+function actBody(){
+  var r=actRange(),f=state.actFilter;
+  if(r.bad)return empty(f==='date'?T('Pick a date.'):T('Pick both dates.'));
+  var l=db.activity.filter(function(a){return r.s==null||(a.ts>=r.s&&a.ts<r.e);}).sort(function(a,b){return b.ts-a.ts;});
+  var h='<p class="sub">'+esc(T('{n} activities',{n:l.length}))+'</p>';
+  if(!l.length)return h+empty(T('Nothing recorded yet.'));
+  var t0=startOfDay(Date.now()),y0=addDays(t0,-1),cur=-1;
+  l.forEach(function(a){
+    var d=startOfDay(a.ts);
+    if(d!==cur){
+      if(cur!==-1)h+='</section>';
+      cur=d;
+      h+='<p class="daygroup">'+esc(d===t0?T('Today'):d===y0?T('Yesterday'):fmtDate(d))+'</p><section class="card flush">';
+    }
+    h+='<div class="row" style="min-height:48px"><span class="grow"><b style="font-weight:600">'+esc(T(a.k,a.v))+'</b><small>'+esc(fmtTime(a.ts))+'</small></span></div>';
+  });
+  return h+'</section>';
+}
+
+function viewActivityTab(){
+  var f=state.actFilter,mx=ymd(Date.now());
+  var chip=function(v,label){return '<button type="button" class="chip" data-a="actf" data-v="'+v+'" aria-pressed="'+(f===v?'true':'false')+'">'+esc(label)+'</button>';};
+  var inp=function(k,label){return '<label>'+esc(label)+'<input type="date" data-act="'+k+'" value="'+esc(state[k]||'')+'" max="'+mx+'"></label>';};
+  return topbar(T('Activity'))+
+  '<div class="chips" role="group">'+chip('today',T('Today'))+chip('yesterday',T('Yesterday'))+chip('date',T('Choose a date'))+chip('range',T('Date range'))+chip('all',T('All'))+'</div>'+
+  (f==='date'?'<div class="daterow">'+inp('actDate',T('Date'))+'</div>':f==='range'?'<div class="daterow">'+inp('actFrom',T('From'))+inp('actTo',T('To'))+'</div>':'')+
+  '<div id="actBody">'+actBody()+'</div>';
 }
 
 function viewLock(){
@@ -477,28 +579,52 @@ function viewLock(){
   return '<div class="lockbox"><h1 style="text-align:center;font-family:Unbounded;">AMANAH</h1><p class="sub" style="text-align:center">'+esc(T('Enter your PIN'))+'</p><div class="dots">'+d+'</div><div class="pad">'+keys+'</div></div>';
 }
 
+/* RESTORED PAYMENT METHODS & SHEETS */
+var METHODS=[{g:'Cash',i:[['cash','Cash']]},{g:'Mobile wallets',i:[['telebirr','Telebirr'],['mpesa','M-Pesa'],['cbebirr','CBE Birr']]},{g:'Banks',i:[['cbe','CBE'],['abyssinia','Bank of Abyssinia']]},{g:'Other',i:[['other','Other']]}];
+function mName(x){if(x.m==='other')return x.label||T('Other');for(var g=0;g<METHODS.length;g++)for(var k=0;k<METHODS[g].i.length;k++)if(METHODS[g].i[k][0]===x.m)return METHODS[g].i[k][1];return x.m;}
+function mSel(){var v=F('f_meth');return v?v.split(','):[];}
+
+function methodHtml(dir){
+  var sel=mSel(),open=F('f_mopen')==='1',names=sel.map(function(k){return mName({m:k,label:F('f_mo')});}).join(', ');
+  var head='<button type="button" class="row" data-a="mopen" style="min-height:48px;border:1px solid var(--field-line);border-radius:12px;padding:8px 14px;width:100%"><span class="grow"><b style="font-weight:600">'+esc(T('Payment method (optional)'))+'</b><small>'+esc(names||T('Not set'))+'</small></span>'+ic(I.chev,18)+'</button>';
+  if(!open)return head;
+  var h='<div class="field">'+esc(dir==='lent'?T('How did you lend the money?'):T('How did you receive the money?'))+'</div>';
+  METHODS.forEach(function(g){
+    h+='<small style="color:var(--muted);font-weight:600">'+esc(T(g.g))+'</small><div class="chips" style="flex-wrap:wrap;overflow:visible">'+g.i.map(function(it){return '<button type="button" class="chip" data-a="mtog" data-v="'+it[0]+'" aria-pressed="'+(sel.indexOf(it[0])>-1)+'">'+esc(it[1])+'</button>';}).join('')+'</div>';
+  });
+  return head+h;
+}
+
 var SHEETS={
   quick:function(){
-    return {title:T('Add Loan'),body:'<div class="form">'+btn('addLoan',T('I lent money'),'primary',{v:'lent',icon:I.wallet})+btn('addLoan',T('I borrowed money'),'',{v:'borrowed',icon:I.download})+'</div>'};
+    var q=function(a,ic_,t,v){return '<button type="button" data-a="'+a+'"'+(v?' data-v="'+v+'"':'')+'><span class="ci">'+ic(ic_,22)+'</span>'+esc(t)+'</button>';};
+    return {title:T('Add a loan'),body:'<div class="qa">'+q('addLoan',I.wallet,T('I lent money'),'lent')+q('addLoan',I.download,T('I borrowed money'),'borrowed')+'</div>'};
   },
   loanForm:function(s){
-    var dir=F('f_dir','lent');
-    return {title:T('Add Loan'),body:'<div class="form">'+seg([{v:'lent',t:T('I lent')},{v:'borrowed',t:T('I borrowed')}],dir,'fDir')+
-      fInput('f_name',T('Person Name'))+fInput('f_phone',T('Phone Number (Optional)'),{type:'tel'})+
-      '<div class="grid2">'+fInput('f_amt',T('Amount (Birr)'),{im:'numeric'})+fInput('f_date',T('Date'),{type:'date',max:ymd(Date.now()),def:ymd(Date.now())})+'</div>'+
-      fInput('f_due',T('Repayment Date (Optional)'),{type:'date'})+fInput('f_note',T('Note'))+errBox()+btn('loanSave',T('Save Loan'),'primary')+'</div>'};
+    var l=s.id?find(db.loans,s.id):null, dir=F('f_dir','lent');
+    var names=db.people.map(function(p){return '<option value="'+esc(p.name)+'">';}).join('');
+    var body='<div class="form">'+(l?'':seg([{v:'lent',t:T('I lent')},{v:'borrowed',t:T('I borrowed')}],dir,'fDir'))+'<datalist id="ppl">'+names+'</datalist>'+
+      fInput('f_name',dir==='lent'?T('Who did you lend to?'):T('Who lent you?'),{list:'ppl'})+fInput('f_phone',T('Phone (optional)'),{type:'tel',im:'tel'})+
+      '<div class="grid2">'+fInput('f_amt',T('Amount (Birr)'),{im:'numeric'})+fInput('f_date',T('Date'),{type:'date',max:ymd(Date.now())})+'</div>'+
+      fInput('f_due',T('Repayment date (optional)'),{type:'date'})+fInput('f_note',T('Note (optional)'),{ph:T('What was it for?')})+methodHtml(dir);
+    return {title:l?T('Edit loan'):T('Add a loan'),body:body+errBox()+btn('loanSave',T('Save'),'primary')+'</div>'};
   },
   loan:function(s){
-    var l=find(db.loans,s.id);if(!l)return null;var p=person(l.pid),b=balOf(l);
-    return {title:p.name,body:'<div class="form">'+
-      kv(T('Amount'),'<b class="num">'+fmt(l.amount)+' Birr</b>')+kv(T('Balance'),'<b class="num">'+fmt(b)+' Birr</b>')+kv(T('Date'),fmtDate(l.ts))+
-      (active(l)?btn('payOpen',T('Record Payment'),'primary',{id:l.id}):'')+
-      btn('loanDel',T('Delete Loan'),'danger',{id:l.id})+'</div>'};
+    var l=find(db.loans,s.id);if(!l)return null;var p=person(l.pid),tg=loanTag(l),b=balOf(l),lent=l.dir==='lent';
+    var body=(tg?'<div class="tags">'+tag(tg.t,tg.k)+'</div>':'')+'<div>'+kv(T('Person'),'<button class="link" data-a="person" data-id="'+l.pid+'">'+esc(p.name)+'</button>')+kv(lent?T('You lent'):T('You borrowed'),'<b class="num">'+fmt(l.amount)+' Birr</b>')+kv(T('Paid back'),'<span class="num">'+fmt(paidOf(l))+'</span>')+kv(T('Balance'),'<b class="num">'+fmt(l.status==='open'?b:0)+'</b>')+kv(T('Date'),esc(fmtDate(l.ts)))+(l.note?kv(T('Note'),esc(l.note)):'')+'</div>';
+    body+='<div class="form">';
+    if(active(l))body+=btn('payOpen',lent?T('Record payment received'):T('Record payment made'),'primary',{id:l.id});
+    return {title:p.name,body:body+btn('loanDel',T('Delete loan'),'danger',{id:l.id})+'</div>'};
   },
   pay:function(s){
-    var l=find(db.loans,s.id);if(!l)return null;
-    return {title:T('Record Payment'),body:'<div class="form">'+fInput('f_pay',T('Amount (Birr)'),{im:'numeric',def:String(balOf(l))})+errBox()+btn('paySave',T('Save Payment'),'primary',{id:l.id})+'</div>'};
-  }
+    var l=find(db.loans,s.id);if(!l||!active(l))return null;
+    return {title:T('Record a payment'),body:'<div class="form"><p class="sub">'+esc(person(l.pid).name)+' - '+esc(T('Balance'))+': <b class="num">'+fmt(balOf(l))+'</b></p>'+fInput('f_pay',T('Amount (Birr)'),{im:'numeric',def:String(balOf(l))})+errBox()+btn('paySave',T('Save payment'),'primary',{id:l.id})+'</div>'};
+  },
+  person:function(s){
+    var p=find(db.people,s.id);if(!p)return null;var n=personNet(p.id);
+    return {title:p.name,body:'<div class="sum"><div class="total"><span>'+esc(n>0?T('Owes you'):n<0?T('You owe'):T('Settled'))+'</span><b class="num">'+fmt(Math.abs(n))+' Birr</b></div></div>'+(p.phone?kv(T('Phone'),esc(p.phone)):'')+'<div class="form">'+btn('addLoanFor',T('Add loan'),'primary',{id:p.id})+'</div>'};
+  },
+  pin:function(){return {title:T('Set a PIN'),body:'<div class="form">'+fInput('f_p1',T('New 4-digit PIN'),{im:'numeric',ml:4,type:'password'})+fInput('f_p2',T('Repeat PIN'),{im:'numeric',ml:4,type:'password'})+errBox()+btn('pinSave',T('Save PIN'),'primary')+'</div>'};}
 };
 
 function renderSheet(){
@@ -519,7 +645,7 @@ function navHtml(){
 
 function render(){
   var top=state.pages[state.pages.length-1];
-  var html=state.locked?viewLock():top==='alerts'?viewAlerts():state.tab==='home'?viewHome():state.tab==='people'?viewPeople():viewSettings();
+  var html=state.locked?viewLock():top==='alerts'?viewAlerts():(top&&top.indexOf('set:')===0)?viewSetPage(top.slice(4)):state.tab==='home'?viewHome():state.tab==='people'?viewPeople():state.tab==='activity'?viewActivityTab():viewSettings();
   $('#app').innerHTML=html;
   $('#nav').hidden=state.locked||!!top; if(!state.locked&&!top)$('#navIn').innerHTML=navHtml();
   renderSheet(); renderConf();
@@ -542,22 +668,32 @@ function act(a,el){
     case 'filter':state.filter=v;break;
     case 'addLoan':state.sheet={t:'loanForm'};state.f={f_dir:v,f_date:ymd(Date.now())};break;
     case 'fDir':state.f.f_dir=v;break;
+    case 'mopen':state.f.f_mopen=state.f.f_mopen==='1'?'':'1';break;
+    case 'mtog':var cs=mSel(),ix=cs.indexOf(v);if(ix>-1)cs.splice(ix,1);else cs.push(v);state.f.f_meth=cs.join(',');break;
     case 'loanSave':
       var name=(state.f.f_name||'').trim(),amt=num(state.f.f_amt);
-      if(!name)return showErr('Enter a name');if(!amt)return showErr('Enter an amount');
-      var p=find(db.people,name)||(function(){var x={id:uid(),name:name,phone:state.f.f_phone||''};db.people.push(x);return x;})();
-      db.loans.push({id:uid(),dir:state.f.f_dir||'lent',pid:p.id,amount:amt,ts:Date.now(),due:fromYmd(state.f.f_due),note:state.f.f_note||'',status:'open',payments:[]});
-      save();state.sheet=null;toast('Saved');break;
+      if(!name)return showErr(T('Enter a name'));if(!amt)return showErr(T('Enter an amount'));
+      var pe=find(db.people,name)||(function(){var x={id:uid(),name:name,phone:state.f.f_phone||''};db.people.push(x);return x;})();
+      db.loans.push({id:uid(),dir:state.f.f_dir||'lent',pid:pe.id,amount:amt,ts:Date.now(),due:fromYmd(state.f.f_due),note:state.f.f_note||'',status:'open',payments:[]});
+      log('Loan saved: {n} {a} Birr',{n:name,a:fmt(amt)});save();state.sheet=null;toast(T('Loan saved'));break;
     case 'loan':state.sheet={t:'loan',id:id};break;
     case 'payOpen':state.sheet={t:'pay',id:id};state.f={};break;
     case 'paySave':
-      var pamt=num(state.f.f_pay);if(!pamt)return showErr('Enter an amount');
-      l.payments.push({id:uid(),ts:Date.now(),amount:pamt});save();state.sheet=null;toast('Payment Recorded');break;
-    case 'loanDel':ask({title:'Delete this loan?',fn:function(){db.loans=db.loans.filter(function(x){return x.id!==id;});save();state.sheet=null;toast('Deleted');}});break;
+      var pamt=num(state.f.f_pay);if(!pamt)return showErr(T('Enter an amount'));
+      l.payments.push({id:uid(),ts:Date.now(),amount:pamt});log('Payment of {a} Birr',{a:fmt(pamt)});save();state.sheet=null;toast(T('Payment saved'));break;
+    case 'loanDel':ask({title:T('Delete loan?'),fn:function(){db.loans=db.loans.filter(function(x){return x.id!==id;});save();state.sheet=null;toast(T('Deleted'));}});break;
+    case 'ptab':state.ptab=v;break;
+    case 'setp':state.pages.push('set:'+v);break;
+    case 'actf':state.actFilter=v;break;
+    case 'mode':db.settings.mode=v;save();applyTheme();break;
+    case 'palette':db.settings.palette=v;save();applyTheme();break;
+    case 'size':db.settings.textSize=v;save();applyTheme();break;
+    case 'rlang':db.settings.remindLang=v;save();break;
+    case 'pinSet':state.sheet={t:'pin'};break;
     case 'backup':
       var b=new Blob([JSON.stringify(db)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');
       a.href=u;a.download='amanah-backup.json';a.click();break;
-    case 'resetAll':ask({title:'Erase all data?',fn:function(){db=emptyDb();save();render();}});break;
+    case 'resetAll':ask({title:T('Erase everything?'),fn:function(){db=emptyDb();save();render();}});break;
     case 'alerts':state.pages.push('alerts');break;
     case 'back':state.pages.pop();break;
   }
@@ -573,6 +709,7 @@ document.addEventListener('input',function(e){
 });
 
 db=load();if(!db){db=seed();save();}
+applyTheme();
 render();
 })();
 </script>
