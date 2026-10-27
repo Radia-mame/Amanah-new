@@ -327,7 +327,7 @@ var I={
   wallet:'<path d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 7l2-3h12"/><circle cx="16.5" cy="13.5" r="1"/>',
   back:'<path d="M15 18l-6-6 6-6"/>',
   chev:'<path d="M9 6l6 6-6 6"/>',
-  gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
+  gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l-.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
   users:'<circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6"/>'
 };
 
@@ -410,7 +410,17 @@ var btns=function(a,b){return '<div class="btns">'+a+b+'</div>';};
 var kv=function(k,v){return '<div class="kv"><span>'+esc(k)+'</span><span>'+v+'</span></div>';};
 var errBox=function(){return '<p class="err" id="sheetErr" role="alert" hidden></p>';};
 function F(id,d){var v=state.f[id];return v==null?(d==null?'':d):v;}
-function fInput(id,label,o){o=o||{};return '<label class="field" for="'+id+'">'+esc(label)+'<input id="'+id+'" data-f'+(o.type?' type="'+o.type+'"':'')+(o.im?' inputmode="'+o.im+'"':'')+(o.list?' list="'+o.list+'"':'')+(o.max?' max="'+o.max+'"':'')+(o.ml?' maxlength="'+o.ml+'"':'')+(o.ph?' placeholder="'+esc(o.ph+'"':'')+' autocomplete="off" value="'+esc(F(id,o.def))+'"></label>';}
+function fInput(id,label,o){
+  o=o||{};
+  return '<label class="field" for="'+id+'">'+esc(label)+'<input id="'+id+'" data-f'+
+    (o.type?' type="'+o.type+'"':'')+
+    (o.im?' inputmode="'+o.im+'"':'')+
+    (o.list?' list="'+o.list+'"':'')+
+    (o.max?' max="'+o.max+'"':'')+
+    (o.ml?' maxlength="'+o.ml+'"':'')+
+    (o.ph?' placeholder="'+esc(o.ph)+'"':'')+
+    ' autocomplete="off" value="'+esc(F(id,o.def))+'"></label>';
+}
 function seg(opts,cur,a){return '<div class="seg" role="group">'+opts.map(function(o){return '<button type="button" data-a="'+a+'" data-v="'+esc(o.v)+'" aria-pressed="'+(String(cur)===String(o.v))+'">'+esc(o.t)+'</button>';}).join('')+'</div>';}
 function chips(opts,cur,a){return '<div class="chips" role="group">'+opts.map(function(o){return '<button type="button" class="chip" data-a="'+a+'" data-v="'+esc(o.v)+'" aria-pressed="'+(String(cur)===String(o.v))+'">'+esc(o.t)+'</button>';}).join('')+'</div>';}
 function pagehead(t,right){return '<header class="pagehead"><button class="iconbtn" data-a="back" aria-label="'+esc(T('Back'))+'">'+ic(I.back,20,2)+'</button><h1>'+esc(t)+'</h1>'+(right||'')+'</header>';}
@@ -440,7 +450,6 @@ function loanList(){
 /* EXACT MACROFACTOR DASHBOARD REDESIGN */
 function heroHtml(t){
   var totLent=t.lent, totOwe=t.owe;
-  // Build 7-day Weekly Breakdown Bars matching MacroFactor UI
   var days=['M','T','W','T','F','S','S'];
   var barsHtml = days.map(function(d, i){
     var h1 = 30 + (i * 10) % 50;
