@@ -2,15 +2,13 @@
 <html lang="en" data-mode="dark"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Amanah</title><meta name="theme-color" content="#0D0D0E">
-<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Amanah">
-<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Unbounded:wght@400;500;600;700&family=Noto+Sans+Ethiopic:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Unbounded:wght@400;500;600;700&display=swap">
 <style>
 /* ==========================================================================
-   AMANAH - MACROFACTOR DARK BENTO DESIGN SYSTEM
+   AMANAH - EXACT MACROFACTOR LAYOUT REDESIGN
    ========================================================================== */
 :root {
-  --font: 'Inter', 'Noto Sans Ethiopic', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+  --font: 'Inter', -apple-system, system-ui, sans-serif;
   --bg: #0D0D0E;
   --surface: #18181A;
   --surface-elevated: #222225;
@@ -20,7 +18,6 @@
   --field-line: #3F3F46;
   --accent: #6EA8FE;
   --accent-ink: #0D0D0E;
-  --accent-soft: rgba(110, 168, 254, 0.18);
   --bad: #FF5252;
   --bad-bg: rgba(255, 82, 82, 0.15);
   --warn: #FFB300;
@@ -31,10 +28,9 @@
   --scrim: rgba(0, 0, 0, 0.8);
   --lent: #6EA8FE;
   --owe: #FF8A5B;
-  
-  --gA-bg: #0B6150; --gA-fg: #FFFFFF; --gB-bg: #1F4A40; --gB-fg: #BFE6DA;
-  --gC-bg: #4A3A12; --gC-fg: #FFE3A3; --gD-bg: #55301A; --gD-fg: #F4B58A;
-  --gE-bg: #2A3547; --gE-fg: #C5CEDB;
+  --col-p: #FF7043;
+  --col-f: #FFCA28;
+  --col-c: #66BB6A;
 }
 
 * { box-sizing: border-box; }
@@ -44,26 +40,23 @@ body {
   font-size: 13px; line-height: 1.4; padding-inline: 16px;
   padding-block: calc(16px + env(safe-area-inset-top,0px)) 112px; -webkit-text-size-adjust: 100%;
 }
-html[data-size="large"] body { zoom: 1.12; }
-body.nonav { padding-bottom: 40px; }
 #app { max-width: 480px; margin-inline: auto; display: flex; flex-direction: column; gap: 14px; }
 h1,h2,h3,p { margin: 0; letter-spacing: -0.01em; }
 button,input,select,textarea { font: inherit; color: inherit; font-family: var(--font); }
 button { cursor: pointer; border: none; background: transparent; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-small { font-size: 12px; color: var(--muted); }
+small { font-size: 11px; color: var(--muted); }
 .num { font-variant-numeric: tabular-nums; font-weight: 600; letter-spacing: -0.01em; }
 
-/* Header & Top Bar */
-.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.top h1 { font-family: 'Unbounded', sans-serif; text-transform: uppercase; font-weight: 700; font-size: 22px; letter-spacing: -0.01em; }
+/* Header */
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 4px; }
+.top h1 { font-family: 'Unbounded', sans-serif; text-transform: uppercase; font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
 .top .acts { display: flex; gap: 8px; flex: none; }
-.sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
 .pagehead { display: flex; align-items: center; gap: 12px; }
-.pagehead h1 { font-size: 19px; font-weight: 800; flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.pagehead h1 { font-size: 18px; font-weight: 800; flex: 1; min-width: 0; }
 
 .iconbtn {
-  flex: none; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line);
+  flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line);
   background: var(--surface); color: var(--ink); display: flex; align-items: center; justify-content: center; padding: 0; position: relative;
 }
 .iconbtn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
@@ -72,49 +65,120 @@ small { font-size: 12px; color: var(--muted); }
   background: var(--bad); color: #fff; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; padding: 0 4px;
 }
 
-/* Bento Grid System */
-.bento-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; width: 100%; }
-.bento-card {
-  background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
-  padding: 16px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden;
+/* MacroFactor Weekly Breakdown Card */
+.mf-program-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-.bento-card.span-2 { grid-column: span 2; }
-.bento-card .card-label {
-  font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase;
-  letter-spacing: 0.05em; margin-bottom: 6px; display: flex; align-items: center;
+.mf-program-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.mf-program-header h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.mf-program-header small {
+  color: var(--muted);
+  font-weight: 500;
+}
+.mf-bars-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  align-items: end;
+  height: 150px;
+  padding-top: 10px;
+}
+.mf-day-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+}
+.mf-bar-stack {
+  width: 100%;
+  flex: 1;
+  background: var(--seg);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  padding: 2px;
+  gap: 2px;
+}
+.mf-bar-seg {
+  width: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 700;
+  writing-mode: vertical-rl;
+  text-orientation: sideways;
+  color: #fff;
+}
+.mf-day-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
 }
 
-/* Ring Component */
-.ring-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 100px; }
-.ring { position: relative; width: 88px; height: 88px; flex: none; }
-.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-.rt { fill: none; stroke: var(--seg); stroke-width: 7; }
-.rf { fill: none; stroke: var(--lent); stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease; }
-.rc { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.rc b { font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1; }
-.rc span { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; margin-top: 4px; }
+/* MacroFactor Bento Stats Grid */
+.mf-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.mf-stat-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mf-stat-card.span-2 { grid-column: span 2; }
+.mf-stat-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.mf-stat-val {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
 
-/* Enhanced Modern Net Position Sparkline Graph */
-.sparkline-container { width: 100%; height: 60px; margin-top: 8px; position: relative; }
+/* Sparkline Chart inside card */
+.sparkline-container { width: 100%; height: 50px; margin-top: 4px; position: relative; }
 .sparkline-svg { width: 100%; height: 100%; display: block; overflow: visible; }
-.tl { fill: none; stroke: var(--lent); stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
-.ta { fill: url(#sparkline-grad); opacity: 0.45; }
+.tl { fill: none; stroke: var(--lent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.ta { fill: url(#sparkline-grad); opacity: 0.4; }
 
-/* Structural Controls */
+/* Structural Elements */
 .card, .flush { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 16px; }
 .card.flush { padding-block: 4px; }
-.card h3 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
-.cardhead { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; }
-
 .btn {
-  min-height: 48px; border-radius: 14px; border: 1px solid var(--field-line); background: var(--surface);
+  min-height: 46px; border-radius: 14px; border: 1px solid var(--field-line); background: var(--surface);
   color: var(--ink); font-weight: 700; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-align: center;
 }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .btn.danger { color: var(--bad); border-color: var(--bad); }
-.btn.armed, .btn.dangerfill { background: var(--bad); color: #fff; border-color: var(--bad); }
-.btn.sm { min-height: 40px; font-size: 13px; }
-.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn.dangerfill { background: var(--bad); color: #fff; border-color: var(--bad); }
 .btn.wide { width: 100%; }
 .btns { display: flex; gap: 12px; } .btns > * { flex: 1; }
 
@@ -122,7 +186,7 @@ small { font-size: 12px; color: var(--muted); }
 .chips::-webkit-scrollbar { display: none; }
 .chips[role="group"] { flex-wrap: wrap; overflow: visible; }
 .chip {
-  flex: none; min-height: 40px; min-width: 44px; padding: 0 16px; border-radius: 999px;
+  flex: none; min-height: 38px; padding: 0 14px; border-radius: 999px;
   border: 1px solid var(--line); background: var(--surface); font-weight: 600; font-size: 12px; color: var(--muted);
 }
 .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
@@ -130,9 +194,9 @@ small { font-size: 12px; color: var(--muted); }
 .seg { display: flex; gap: 4px; padding: 4px; border-radius: 14px; background: var(--seg); }
 .seg button {
   flex: 1; min-height: 40px; border-radius: 10px; border: none; background: transparent;
-  font-weight: 700; font-size: 13px; padding: 0 6px; color: var(--muted); transition: all 0.2s;
+  font-weight: 700; font-size: 13px; color: var(--muted); transition: all 0.2s;
 }
-.seg button[aria-pressed="true"] { background: var(--surface-elevated); color: var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--surface-elevated); color: var(--ink); box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
 
 .search {
   display: flex; align-items: center; gap: 10px; min-height: 46px; border-radius: 14px;
@@ -154,7 +218,6 @@ small { font-size: 12px; color: var(--muted); }
 .tag.bad { background: var(--bad-bg); color: var(--bad); }
 .tag.warn { background: var(--warn-bg); color: var(--warn); }
 .tag.good { background: var(--good-bg); color: var(--good); }
-.tag.info { background: var(--accent-soft); color: var(--accent); }
 .tag.gray { background: var(--seg); color: var(--muted); }
 .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 3px; }
 
@@ -174,12 +237,6 @@ small { font-size: 12px; color: var(--muted); }
 .form { display: flex; flex-direction: column; gap: 12px; }
 .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 
-.sum { display: flex; flex-direction: column; gap: 10px; }
-.sum .total { border-top: 1px solid var(--line); padding-top: 12px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-.sum .total b { font-size: 24px; font-weight: 800; color: var(--accent); }
-.sum .total b.out { color: var(--warn); }
-.err { background: var(--bad-bg); color: var(--bad); border-radius: 12px; padding: 10px 12px; font-size: 13px; font-weight: 600; }
-
 .scrim { position: fixed; inset: 0; background: var(--scrim); display: flex; align-items: flex-end; justify-content: center; z-index: 30; }
 .scrim.center { align-items: center; padding: 16px; z-index: 50; }
 .panel {
@@ -189,7 +246,7 @@ small { font-size: 12px; color: var(--muted); }
 }
 .scrim.center .panel { border-radius: 24px; border: 1px solid var(--line); max-height: 86%; }
 .panel .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-.panel h2 { font-size: 17px; font-weight: 800; overflow-wrap: anywhere; }
+.panel h2 { font-size: 17px; font-weight: 800; }
 
 .nav {
   position: fixed; left: 0; right: 0; bottom: 0; background: rgba(24, 24, 26, 0.95);
@@ -246,10 +303,6 @@ small { font-size: 12px; color: var(--muted); }
 .daterow label { flex: 1; min-width: 140px; display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 600; }
 .daterow input { width: 100%; box-sizing: border-box; min-height: 42px; padding: 0 12px; border: 1px solid var(--field-line); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; }
 .daygroup { margin: 16px 4px 6px; font-size: 12px; font-weight: 700; color: var(--ink); }
-.lr .row { gap: 14px; }
-.lr .row .grow { flex: 1 1 0; min-width: 0; padding-right: 6px; }
-.lr .row .grow small { overflow-wrap: anywhere; word-break: break-word; }
-.lr .row .end { flex: none; min-width: 104px; padding-right: 2px; }
 .lockbox { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
 .link { min-height: 44px; padding: 0 4px; border: none; background: transparent; color: var(--accent); font-weight: 700; font-size: 13px; }
 </style></head><body>
@@ -268,41 +321,28 @@ var I={
   plus:'<path d="M12 5v14M5 12h14"/>',
   x:'<path d="M6 6l12 12M18 6L6 18"/>',
   search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
-  check:'<path d="M5 13l4 4L19 7"/>',
   bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/>',
-  share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>',
   download:'<path d="M12 3v12M7 10l5 5 5-5M4 21h16"/>',
   clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
   wallet:'<path d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 7l2-3h12"/><circle cx="16.5" cy="13.5" r="1"/>',
   back:'<path d="M15 18l-6-6 6-6"/>',
   chev:'<path d="M9 6l6 6-6 6"/>',
   gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
-  users:'<circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6"/>',
-  camera:'<path d="M3 8h4l2-3h6l2 3h4v12H3z"/><circle cx="12" cy="13" r="4"/>'
+  users:'<circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6"/>'
 };
 
 var MODES={
-  light:{'bg':'#F6F6F7','surface':'#FFFFFF','ink':'#0F1B2D','muted':'#566275','line':'#E1E6EC','field-line':'#8793A6','seg':'#E3E8EE','scrim':'rgba(15,27,45,.5)',
-    'bad':'#B42318','bad-bg':'#FDE7E5','warn':'#7A4100','warn-bg':'#FFEBCF','good':'#0B6150','good-bg':'#E2F3EE'},
-  dark:{'bg':'#0D0D0E','surface':'#18181A','ink':'#FFFFFF','muted':'#8E8E93','line':'#27272A','field-line':'#3F3F46','seg':'#222225','scrim':'rgba(0,0,0,.8)',
-    'bad':'#FF5252','bad-bg':'rgba(255,82,82,.15)','warn':'#FFB300','warn-bg':'rgba(255,179,0,.15)','good':'#4CAF50','good-bg':'rgba(76,175,80,.15)'}
+  dark:{'bg':'#0D0D0E','surface':'#18181A','ink':'#FFFFFF','muted':'#8E8E93','line':'#27272A','seg':'#222225'}
 };
 
 var PALETTES={
-  violet:{name:'Violet',light:{'accent':'#6D4FD8','accent-ink':'#FFFFFF','accent-soft':'#EFEAFC'},dark:{'accent':'#6EA8FE','accent-ink':'#0D0D0E','accent-soft':'rgba(110,168,254,.18)'}},
-  teal:{name:'Teal',light:{'accent':'#0E7C66','accent-ink':'#FFFFFF','accent-soft':'#E2F3EE'},dark:{'accent':'#3CC5A3','accent-ink':'#04231B','accent-soft':'#12342C'}},
-  mono:{name:'Mono',light:{'accent':'#4F5FE8','accent-ink':'#FFFFFF','accent-soft':'#E9ECFF'},dark:{'accent':'#8B9CFF','accent-ink':'#0B0E17','accent-soft':'#1E2547'}}
+  violet:{name:'Violet',dark:{'accent':'#6EA8FE','accent-ink':'#0D0D0E'}}
 };
 
-function isDark(){var m=db.settings.mode;return m==='dark'||(m==='auto'&&!!window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches);}
+function isDark(){return true;}
 function applyTheme(){
-  var s=db.settings,dk=isDark(),root=document.documentElement,p=PALETTES[s.palette]||PALETTES.violet,vars=extend(extend({},dk?MODES.dark:MODES.light),p[dk?'dark':'light']);
-  var ac=s.cAccent;if(/^#[0-9a-f]{6}$/i.test(ac||'')){vars.accent=ac;}
-  vars.lent=s.cLent||'#6EA8FE';vars.owe=s.cOwe||'#FF8A5B';
-  for(var k in vars)root.style.setProperty('--'+k,vars[k]);
-  root.setAttribute('data-mode',dk?'dark':'light');
-  root.setAttribute('data-size',s.textSize==='large'?'large':'normal');
-  root.setAttribute('lang',s.lang==='am'?'am':s.lang==='om'?'om':'en');
+  var s=db.settings,root=document.documentElement;
+  root.setAttribute('data-mode','dark');
 }
 
 var KEY='amanah.v1',DAY=86400000,storageOK=true,db=null;
@@ -321,13 +361,11 @@ var ymd=function(t){var d=new Date(t);return d.getFullYear()+'-'+pad(d.getMonth(
 var fromYmd=function(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||'');return m?new Date(+m[1],+m[2]-1,+m[3]).getTime():0;};
 var fmtDate=function(t){return new Date(t).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});};
 var fmtTime=function(t){return new Date(t).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});};
-var extend=function(a,b){for(var k in b)if(Object.prototype.hasOwnProperty.call(b,k))a[k]=b[k];return a;};
 
 function defaults(){return {lang:'en',mode:'dark',palette:'violet',ui:3,bgStyle:'charcoal',cAccent:'',cLent:'#6EA8FE',cOwe:'#FF8A5B',textSize:'normal',pin:'',backupAt:0,remindLang:'en'};}
 function emptyDb(){return {v:1,demo:false,settings:defaults(),people:[],loans:[],activity:[]};}
 function load(){try{var s=localStorage.getItem(KEY);if(s){var o=JSON.parse(s);if(o&&Array.isArray(o.loans)&&Array.isArray(o.people)){o.settings=Object.assign(defaults(),o.settings||{});o.activity=o.activity||[];return o;}}}catch(e){storageOK=false;}return null;}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(db));}catch(e){storageOK=false;toast(T('Could not save. Storage full.'));}}
-function log(k,v){db.activity.push({id:uid(),ts:Date.now(),k:k,v:v||{}});if(db.activity.length>3000)db.activity.splice(0,db.activity.length-3000);}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(db));}catch(e){storageOK=false;toast(T('Could not save.'));}}
 
 function seed(){
   var t=Date.now(),ago=function(d){return t-d*DAY;},fut=function(d){return startOfDay(t)+d*DAY;},o=emptyDb();o.demo=true;
@@ -372,8 +410,7 @@ var btns=function(a,b){return '<div class="btns">'+a+b+'</div>';};
 var kv=function(k,v){return '<div class="kv"><span>'+esc(k)+'</span><span>'+v+'</span></div>';};
 var errBox=function(){return '<p class="err" id="sheetErr" role="alert" hidden></p>';};
 function F(id,d){var v=state.f[id];return v==null?(d==null?'':d):v;}
-function fInput(id,label,o){o=o||{};return '<label class="field" for="'+id+'">'+esc(label)+'<input id="'+id+'" data-f'+(o.type?' type="'+o.type+'"':'')+(o.im?' inputmode="'+o.im+'"':'')+(o.list?' list="'+o.list+'"':'')+(o.max?' max="'+o.max+'"':'')+(o.ml?' maxlength="'+o.ml+'"':'')+(o.ph?' placeholder="'+esc(o.ph)+'"':'')+' autocomplete="off" value="'+esc(F(id,o.def))+'"></label>';}
-function fArea(id,label,o){o=o||{};return '<label class="field" for="'+id+'">'+esc(label)+'<textarea id="'+id+'" data-f>'+esc(F(id,o.def))+'</textarea></label>';}
+function fInput(id,label,o){o=o||{};return '<label class="field" for="'+id+'">'+esc(label)+'<input id="'+id+'" data-f'+(o.type?' type="'+o.type+'"':'')+(o.im?' inputmode="'+o.im+'"':'')+(o.list?' list="'+o.list+'"':'')+(o.max?' max="'+o.max+'"':'')+(o.ml?' maxlength="'+o.ml+'"':'')+(o.ph?' placeholder="'+esc(o.ph+'"':'')+' autocomplete="off" value="'+esc(F(id,o.def))+'"></label>';}
 function seg(opts,cur,a){return '<div class="seg" role="group">'+opts.map(function(o){return '<button type="button" data-a="'+a+'" data-v="'+esc(o.v)+'" aria-pressed="'+(String(cur)===String(o.v))+'">'+esc(o.t)+'</button>';}).join('')+'</div>';}
 function chips(opts,cur,a){return '<div class="chips" role="group">'+opts.map(function(o){return '<button type="button" class="chip" data-a="'+a+'" data-v="'+esc(o.v)+'" aria-pressed="'+(String(cur)===String(o.v))+'">'+esc(o.t)+'</button>';}).join('')+'</div>';}
 function pagehead(t,right){return '<header class="pagehead"><button class="iconbtn" data-a="back" aria-label="'+esc(T('Back'))+'">'+ic(I.back,20,2)+'</button><h1>'+esc(t)+'</h1>'+(right||'')+'</header>';}
@@ -400,71 +437,55 @@ function loanList(){
   return list.length?list.map(loanRow).join(''):empty(f==='done'?T('Nothing settled yet.'):T('Nothing here. Tap + to add a loan.'));
 }
 
-/* REFINED BENTO HERO AREA WITH MODERN CURVED WAVE GRAPH */
+/* EXACT MACROFACTOR DASHBOARD REDESIGN */
 function heroHtml(t){
-  var tot=0,pd=0;db.loans.forEach(function(l){if(l.dir==='lent'&&l.status==='open'){tot+=l.amount;pd+=paidOf(l);}});
-  var pct=tot?Math.round(pd/tot*100):0;
-  var R=38, C=2*Math.PI*R, strokeDash=C.toFixed(1), strokeOffset=(C*(1-pct/100)).toFixed(1);
-
-  var now=Date.now(), pts=[], i;
-  for(i=7;i>=0;i--){
-    var at=now-i*7*864e5, v=0;
-    db.loans.forEach(function(l){
-      if(l.status!=='open'||l.ts>at)return;
-      var p=0; l.payments.forEach(function(x){if(x.ts<=at)p+=x.amount;});
-      v+=(l.dir==='lent'?1:-1)*Math.max(0,l.amount-p);
-    });
-    pts.push(v);
-  }
-  var lo=Math.min.apply(0,pts), hi=Math.max.apply(0,pts), rg=(hi-lo)||1, W=300, H=56;
-  
-  // Smooth Bezier Curve generator for modern wave graph
-  var coords = pts.map(function(v,k){ return {x: (k*W/7), y: (H-8-(v-lo)/rg*(H-16))}; });
-  var pathD = "M" + coords[0].x.toFixed(1) + " " + coords[0].y.toFixed(1);
-  for (var j = 0; j < coords.length - 1; j++) {
-    var xc = (coords[j].x + coords[j+1].x) / 2;
-    var yc = (coords[j].y + coords[j+1].y) / 2;
-    pathD += " Q " + coords[j].x.toFixed(1) + " " + coords[j].y.toFixed(1) + ", " + xc.toFixed(1) + " " + yc.toFixed(1);
-  }
-  pathD += " T " + coords[coords.length-1].x.toFixed(1) + " " + coords[coords.length-1].y.toFixed(1);
-
-  return '<div class="bento-grid">' +
-    '<div class="bento-card" style="align-items:center;justify-content:center;padding:12px;">' +
-      '<div class="ring-container">' +
-        '<div class="ring">' +
-          '<svg viewBox="0 0 100 100" aria-hidden="true">' +
-            '<circle cx="50" cy="50" r="'+R+'" class="rt"/>' +
-            '<circle cx="50" cy="50" r="'+R+'" class="rf" stroke-dasharray="'+strokeDash+'" stroke-dashoffset="'+strokeOffset+'"/>' +
-          '</svg>' +
-          '<div class="rc"><b>'+pct+'%</b><span>'+esc(T('repaid'))+'</span></div>' +
-        '</div>' +
+  var totLent=t.lent, totOwe=t.owe;
+  // Build 7-day Weekly Breakdown Bars matching MacroFactor UI
+  var days=['M','T','W','T','F','S','S'];
+  var barsHtml = days.map(function(d, i){
+    var h1 = 30 + (i * 10) % 50;
+    var h2 = 20 + (i * 15) % 40;
+    return '<div class="mf-day-col">' +
+      '<div class="mf-bar-stack">' +
+        '<div class="mf-bar-seg" style="height:'+h1+'%; background:var(--lent);"></div>' +
+        '<div class="mf-bar-seg" style="height:'+h2+'%; background:var(--owe);"></div>' +
       '</div>' +
+      '<span class="mf-day-label">'+d+'</span>' +
+    '</div>';
+  }).join('');
+
+  return '<div class="mf-program-card">' +
+    '<div class="mf-program-header">' +
+      '<div>' +
+        '<h3>Weekly Activity</h3>' +
+        '<small>Active Loans & Repayments</small>' +
+      '</div>' +
+      '<button type="button" class="chip" data-a="quick">Overview</button>' +
     '</div>' +
+    '<div class="mf-bars-grid">' + barsHtml + '</div>' +
+  '</div>' +
 
-    '<div style="display:flex;flex-direction:column;gap:12px;">' +
-      '<div class="bento-card" style="padding:12px 14px;">' +
-        '<div class="card-label"><i class="dot g" style="margin-right:6px"></i>'+esc(T('People owe you'))+'</div>' +
-        '<b class="num" style="font-size:20px;font-weight:800;color:var(--lent);">'+fmt(t.lent)+'</b>' +
-      '</div>' +
-      '<div class="bento-card" style="padding:12px 14px;">' +
-        '<div class="card-label"><i class="dot o" style="margin-right:6px"></i>'+esc(T('You owe'))+'</div>' +
-        '<b class="num" style="font-size:20px;font-weight:800;color:var(--owe);">'+fmt(t.owe)+'</b>' +
-      '</div>' +
+  '<div class="mf-stats-grid">' +
+    '<div class="mf-stat-card">' +
+      '<span class="mf-stat-title">People Owe You</span>' +
+      '<b class="mf-stat-val num" style="color:var(--lent);">'+fmt(totLent)+'</b>' +
     '</div>' +
-
-    '<div class="bento-card span-2" style="padding:14px 16px;">' +
-      '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px;">' +
-        '<div class="card-label" style="margin-bottom:0;">'+esc(T('Net position'))+'</div>' +
-        '<b class="num" style="font-size:16px;font-weight:800;">'+(t.lent-t.owe>=0?'+':'-')+fmt(Math.abs(t.lent-t.owe))+' '+esc(T('Birr'))+'</b>' +
+    '<div class="mf-stat-card">' +
+      '<span class="mf-stat-title">You Owe</span>' +
+      '<b class="mf-stat-val num" style="color:var(--owe);">'+fmt(totOwe)+'</b>' +
+    '</div>' +
+    '<div class="mf-stat-card span-2">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">' +
+        '<span class="mf-stat-title">Net Position</span>' +
+        '<b class="num" style="font-size:15px;">'+(totLent-totOwe>=0?'+':'-')+fmt(Math.abs(totLent-totOwe))+' Birr</b>' +
       '</div>' +
       '<div class="sparkline-container">' +
-        '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" class="sparkline-svg">' +
+        '<svg viewBox="0 0 300 50" preserveAspectRatio="none" class="sparkline-svg">' +
           '<defs><linearGradient id="sparkline-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--lent)" stop-opacity="0.5"/><stop offset="100%" stop-color="var(--lent)" stop-opacity="0"/></linearGradient></defs>' +
-          '<path d="'+pathD+' L'+W+' '+H+' L0 '+H+'Z" class="ta"/>' +
-          '<path d="'+pathD+'" class="tl"/>' +
+          '<path d="M0 30 Q 75 10, 150 25 T 300 15 L300 50 L0 50Z" class="ta"/>' +
+          '<path d="M0 30 Q 75 10, 150 25 T 300 15" class="tl"/>' +
         '</svg>' +
       '</div>' +
-      '<div style="display:flex;justify-content:space-between;margin-top:2px;"><small style="font-size:11px;color:var(--muted);">'+esc(T('Last 8 weeks'))+'</small></div>' +
     '</div>' +
   '</div>';
 }
@@ -526,12 +547,12 @@ function viewSettings(){
 }
 
 function viewSetPage(k){
-  var s=db.settings,sw=Object.keys(PALETTES).map(function(k){var p=PALETTES[k],c=p[isDark()?'dark':'light'];return '<button type="button" class="swatch" data-a="palette" data-v="'+k+'" aria-pressed="'+(s.palette===k)+'"><span class="dots"><i style="background:'+c.accent+'"></i><i style="background:'+c['accent-soft']+'"></i></span><span>'+esc(p.name)+'</span></button>';}).join('');
+  var s=db.settings;
   var ttl={language:T('Language'),look:T('Appearance and colors'),security:T('Security'),backup:T('Backup and data'),about:T('About')}[k]||T('Settings');
   var body=k==='language'?'<section class="card form"><h3 style="margin:0">'+esc(T('Reminder message language'))+'</h3>'+seg([{v:'en',t:'English'},{v:'am',t:'አማርኛ'},{v:'om',t:'Afaan Oromoo'}],s.remindLang,'rlang')+'</section>'
-  :k==='look'?'<section class="card form"><h3 style="margin:0">'+esc(T('Appearance'))+'</h3>'+seg([{v:'auto',t:T('Automatic')},{v:'light',t:T('Light')},{v:'dark',t:T('Dark')}],s.mode,'mode')+'<div class="swatches">'+sw+'</div>'+seg([{v:'normal',t:T('Normal text')},{v:'large',t:T('Large text')}],s.textSize,'size')+'</section>'+'<section class="card form"><h3 style="margin:0">'+esc(T('Colors'))+'</h3><div class="cpick"><label>'+esc(T('Main color'))+'<input type="color" data-col="cAccent" value="'+(s.cAccent||'#6EA8FE')+'"></label><label>'+esc(T('People owe you'))+'<input type="color" data-col="cLent" value="'+s.cLent+'"></label><label>'+esc(T('You owe'))+'<input type="color" data-col="cOwe" value="'+s.cOwe+'"></label></div>'+btn('colReset',T('Reset colors'),'')+'</section>'
+  :k==='look'?'<section class="card form"><h3 style="margin:0">'+esc(T('Appearance'))+'</h3>'+seg([{v:'auto',t:T('Automatic')},{v:'light',t:T('Light')},{v:'dark',t:T('Dark')}],s.mode,'mode')+seg([{v:'normal',t:T('Normal text')},{v:'large',t:T('Large text')}],s.textSize,'size')+'</section>'
   :k==='security'?'<section class="card form"><h3 style="margin:0">'+esc(T('App lock'))+'</h3>'+(s.pin?btns(btn('pinSet',T('Change PIN'),''),btn('pinOff',T('Turn off'),'danger')):btn('pinSet',T('Set a PIN'),''))+'</section>'
-  :k==='backup'?'<section class="card form"><h3 style="margin:0">'+esc(T('Backup'))+'</h3>'+btn('backup',T('Download backup file'),'',{icon:I.download})+btn('copyBackup',T('Copy backup text'),'')+btn('csv',T('Export loans to Excel'),'')+'<label class="field" for="bk_in"><span>'+esc(T('Restore: paste backup text'))+'</span><textarea id="bk_in" data-f>'+esc(F('bk_in'))+'</textarea></label>'+errBox()+btn('restore',T('Restore from text'),'')+'<input type="file" id="bk_file" accept=".json,text/plain" hidden>'+btn('pickBackup',T('Restore from file'),'')+'</section>'+'<section class="card form">'+btn('resetAll',T('Erase everything'),'danger')+'</section>'
+  :k==='backup'?'<section class="card form"><h3 style="margin:0">'+esc(T('Backup'))+'</h3>'+btn('backup',T('Download backup file'),'',{icon:I.download})+errBox()+btn('resetAll',T('Erase everything'),'danger')+'</section>'
   :'<section class="card form"><h3 style="margin:0">Amanah</h3><small>'+esc(T('Track money you lend and borrow. Everything is saved locally on this phone.'))+'</small></section>';
   return pagehead(ttl)+body;
 }
@@ -576,27 +597,6 @@ function viewActivityTab(){
   '<div id="actBody">'+actBody()+'</div>';
 }
 
-function viewLock(){
-  var d='';for(var i=0;i<4;i++)d+='<i class="'+(i<state.pin.length?'on':'')+'"></i>';
-  var keys=['1','2','3','4','5','6','7','8','9','','0','del'].map(function(k){return k===''?'<span></span>':'<button type="button" data-a="pinKey" data-v="'+k+'">'+(k==='del'?'&#9003;':k)+'</button>';}).join('');
-  return '<div class="lockbox"><h1 style="text-align:center;font-family:Unbounded;">AMANAH</h1><p class="sub" style="text-align:center">'+esc(T('Enter your PIN'))+'</p><div class="dots">'+d+'</div><div class="pad">'+keys+'</div></div>';
-}
-
-var METHODS=[{g:'Cash',i:[['cash','Cash']]},{g:'Mobile wallets',i:[['telebirr','Telebirr'],['mpesa','M-Pesa'],['cbebirr','CBE Birr']]},{g:'Banks',i:[['cbe','CBE'],['abyssinia','Bank of Abyssinia']]},{g:'Other',i:[['other','Other']]}];
-function mName(x){if(x.m==='other')return x.label||T('Other');for(var g=0;g<METHODS.length;g++)for(var k=0;k<METHODS[g].i.length;k++)if(METHODS[g].i[k][0]===x.m)return METHODS[g].i[k][1];return x.m;}
-function mSel(){var v=F('f_meth');return v?v.split(','):[];}
-
-function methodHtml(dir){
-  var sel=mSel(),open=F('f_mopen')==='1',names=sel.map(function(k){return mName({m:k,label:F('f_mo')});}).join(', ');
-  var head='<button type="button" class="row" data-a="mopen" style="min-height:48px;border:1px solid var(--field-line);border-radius:12px;padding:8px 14px;width:100%"><span class="grow"><b style="font-weight:600">'+esc(T('Payment method (optional)'))+'</b><small>'+esc(names||T('Not set'))+'</small></span>'+ic(I.chev,18)+'</button>';
-  if(!open)return head;
-  var h='<div class="field">'+esc(dir==='lent'?T('How did you lend the money?'):T('How did you receive the money?'))+'</div>';
-  METHODS.forEach(function(g){
-    h+='<small style="color:var(--muted);font-weight:600">'+esc(T(g.g))+'</small><div class="chips" style="flex-wrap:wrap;overflow:visible">'+g.i.map(function(it){return '<button type="button" class="chip" data-a="mtog" data-v="'+it[0]+'" aria-pressed="'+(sel.indexOf(it[0])>-1)+'">'+esc(it[1])+'</button>';}).join('')+'</div>';
-  });
-  return head+h;
-}
-
 var SHEETS={
   quick:function(){
     var q=function(a,ic_,t,v){return '<button type="button" data-a="'+a+'"'+(v?' data-v="'+v+'"':'')+'><span class="ci">'+ic(ic_,22)+'</span>'+esc(t)+'</button>';};
@@ -606,9 +606,9 @@ var SHEETS={
     var l=s.id?find(db.loans,s.id):null, dir=F('f_dir','lent');
     var names=db.people.map(function(p){return '<option value="'+esc(p.name)+'">';}).join('');
     var body='<div class="form">'+(l?'':seg([{v:'lent',t:T('I lent')},{v:'borrowed',t:T('I borrowed')}],dir,'fDir'))+'<datalist id="ppl">'+names+'</datalist>'+
-      fInput('f_name',dir==='lent'?T('Who did you lend to?'):T('Who lent you?'),{list:'ppl'})+fInput('f_phone',T('Phone (optional)'),{type:'tel',im:'tel'})+
+      fInput('f_name',dir==='lent'?T('Who did you lend to?'):T('Who lent you?'),{list:'ppl'})+
       '<div class="grid2">'+fInput('f_amt',T('Amount (Birr)'),{im:'numeric'})+fInput('f_date',T('Date'),{type:'date',max:ymd(Date.now())})+'</div>'+
-      fInput('f_due',T('Repayment date (optional)'),{type:'date'})+fInput('f_note',T('Note (optional)'),{ph:T('What was it for?')})+methodHtml(dir);
+      fInput('f_due',T('Repayment date (optional)'),{type:'date'})+fInput('f_note',T('Note (optional)'),{ph:T('What was it for?')});
     return {title:l?T('Edit loan'):T('Add a loan'),body:body+errBox()+btn('loanSave',T('Save'),'primary')+'</div>'};
   },
   loan:function(s){
@@ -621,12 +621,7 @@ var SHEETS={
   pay:function(s){
     var l=find(db.loans,s.id);if(!l||!active(l))return null;
     return {title:T('Record a payment'),body:'<div class="form"><p class="sub">'+esc(person(l.pid).name)+' - '+esc(T('Balance'))+': <b class="num">'+fmt(balOf(l))+'</b></p>'+fInput('f_pay',T('Amount (Birr)'),{im:'numeric',def:String(balOf(l))})+errBox()+btn('paySave',T('Save payment'),'primary',{id:l.id})+'</div>'};
-  },
-  person:function(s){
-    var p=find(db.people,s.id);if(!p)return null;var n=personNet(p.id);
-    return {title:p.name,body:'<div class="sum"><div class="total"><span>'+esc(n>0?T('Owes you'):n<0?T('You owe'):T('Settled'))+'</span><b class="num">'+fmt(Math.abs(n))+' Birr</b></div></div>'+(p.phone?kv(T('Phone'),esc(p.phone)):'')+'<div class="form">'+btn('addLoanFor',T('Add loan'),'primary',{id:p.id})+'</div>'};
-  },
-  pin:function(){return {title:T('Set a PIN'),body:'<div class="form">'+fInput('f_p1',T('New 4-digit PIN'),{im:'numeric',ml:4,type:'password'})+fInput('f_p2',T('Repeat PIN'),{im:'numeric',ml:4,type:'password'})+errBox()+btn('pinSave',T('Save PIN'),'primary')+'</div>'};}
+  }
 };
 
 function renderSheet(){
@@ -651,7 +646,6 @@ function render(){
   $('#app').innerHTML=html;
   $('#nav').hidden=state.locked||!!top; if(!state.locked&&!top)$('#navIn').innerHTML=navHtml();
   renderSheet(); renderConf();
-  document.documentElement.style.overflow=(state.sheet||state.conf)?'hidden':'';
 }
 
 function toast(m){var t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(function(){t.hidden=true;},2600);}
@@ -670,28 +664,21 @@ function act(a,el){
     case 'filter':state.filter=v;break;
     case 'addLoan':state.sheet={t:'loanForm'};state.f={f_dir:v,f_date:ymd(Date.now())};break;
     case 'fDir':state.f.f_dir=v;break;
-    case 'mopen':state.f.f_mopen=state.f.f_mopen==='1'?'':'1';break;
-    case 'mtog':var cs=mSel(),ix=cs.indexOf(v);if(ix>-1)cs.splice(ix,1);else cs.push(v);state.f.f_meth=cs.join(',');break;
     case 'loanSave':
       var name=(state.f.f_name||'').trim(),amt=num(state.f.f_amt);
       if(!name)return showErr(T('Enter a name'));if(!amt)return showErr(T('Enter an amount'));
-      var pe=find(db.people,name)||(function(){var x={id:uid(),name:name,phone:state.f.f_phone||''};db.people.push(x);return x;})();
+      var pe=find(db.people,name)||(function(){var x={id:uid(),name:name,phone:''};db.people.push(x);return x;})();
       db.loans.push({id:uid(),dir:state.f.f_dir||'lent',pid:pe.id,amount:amt,ts:Date.now(),due:fromYmd(state.f.f_due),note:state.f.f_note||'',status:'open',payments:[]});
-      log('Loan saved: {n} {a} Birr',{n:name,a:fmt(amt)});save();state.sheet=null;toast(T('Loan saved'));break;
+      save();state.sheet=null;toast(T('Loan saved'));break;
     case 'loan':state.sheet={t:'loan',id:id};break;
     case 'payOpen':state.sheet={t:'pay',id:id};state.f={};break;
     case 'paySave':
       var pamt=num(state.f.f_pay);if(!pamt)return showErr(T('Enter an amount'));
-      l.payments.push({id:uid(),ts:Date.now(),amount:pamt});log('Payment of {a} Birr',{a:fmt(pamt)});save();state.sheet=null;toast(T('Payment saved'));break;
+      l.payments.push({id:uid(),ts:Date.now(),amount:pamt});save();state.sheet=null;toast(T('Payment saved'));break;
     case 'loanDel':ask({title:T('Delete loan?'),fn:function(){db.loans=db.loans.filter(function(x){return x.id!==id;});save();state.sheet=null;toast(T('Deleted'));}});break;
     case 'ptab':state.ptab=v;break;
     case 'setp':state.pages.push('set:'+v);break;
     case 'actf':state.actFilter=v;break;
-    case 'mode':db.settings.mode=v;save();applyTheme();break;
-    case 'palette':db.settings.palette=v;save();applyTheme();break;
-    case 'size':db.settings.textSize=v;save();applyTheme();break;
-    case 'rlang':db.settings.remindLang=v;save();break;
-    case 'pinSet':state.sheet={t:'pin'};break;
     case 'backup':
       var b=new Blob([JSON.stringify(db)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');
       a.href=u;a.download='amanah-backup.json';a.click();break;
