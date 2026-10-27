@@ -21,10 +21,6 @@
   --accent: #6EA8FE;
   --accent-ink: #0D0D0E;
   --accent-soft: rgba(110, 168, 254, 0.18);
-  --hero: #18181A;
-  --hero-ink: #FFFFFF;
-  --hero-muted: #8E8E93;
-  --hero-line: #27272A;
   --bad: #FF5252;
   --bad-bg: rgba(255, 82, 82, 0.15);
   --warn: #FFB300;
@@ -51,8 +47,8 @@ body {
 html[data-size="large"] body { zoom: 1.12; }
 body.nonav { padding-bottom: 40px; }
 #app { max-width: 480px; margin-inline: auto; display: flex; flex-direction: column; gap: 14px; }
-h1,h2,h3,p { margin: 0; letter-spacing: -0.02em; }
-button,input,select,textarea { font: inherit; color: inherit; font-family: inherit; }
+h1,h2,h3,p { margin: 0; letter-spacing: -0.01em; }
+button,input,select,textarea { font: inherit; color: inherit; font-family: var(--font); }
 button { cursor: pointer; border: none; background: transparent; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 small { font-size: 12px; color: var(--muted); }
@@ -88,21 +84,21 @@ small { font-size: 12px; color: var(--muted); }
   letter-spacing: 0.05em; margin-bottom: 6px; display: flex; align-items: center;
 }
 
-/* Ring Fix */
+/* Ring Component */
 .ring-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 100px; }
 .ring { position: relative; width: 88px; height: 88px; flex: none; }
 .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
 .rt { fill: none; stroke: var(--seg); stroke-width: 7; }
 .rf { fill: none; stroke: var(--lent); stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease; }
 .rc { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.rc b { font-size: 18px; font-weight: 800; color: var(--ink); line-height: 1; }
+.rc b { font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1; }
 .rc span { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; margin-top: 4px; }
 
-/* Sparkline Fix */
-.sparkline-container { width: 100%; height: 44px; margin-top: 4px; }
+/* Enhanced Modern Net Position Sparkline Graph */
+.sparkline-container { width: 100%; height: 60px; margin-top: 8px; position: relative; }
 .sparkline-svg { width: 100%; height: 100%; display: block; overflow: visible; }
-.tl { fill: none; stroke: var(--lent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.ta { fill: url(#sparkline-grad); opacity: 0.35; }
+.tl { fill: none; stroke: var(--lent); stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+.ta { fill: url(#sparkline-grad); opacity: 0.45; }
 
 /* Structural Controls */
 .card, .flush { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 16px; }
@@ -404,7 +400,7 @@ function loanList(){
   return list.length?list.map(loanRow).join(''):empty(f==='done'?T('Nothing settled yet.'):T('Nothing here. Tap + to add a loan.'));
 }
 
-/* PERFECT REFACTORED BENTO CARD (Ring + Sparkline fixed) */
+/* REFINED BENTO HERO AREA WITH MODERN CURVED WAVE GRAPH */
 function heroHtml(t){
   var tot=0,pd=0;db.loans.forEach(function(l){if(l.dir==='lent'&&l.status==='open'){tot+=l.amount;pd+=paidOf(l);}});
   var pct=tot?Math.round(pd/tot*100):0;
@@ -420,8 +416,17 @@ function heroHtml(t){
     });
     pts.push(v);
   }
-  var lo=Math.min.apply(0,pts), hi=Math.max.apply(0,pts), rg=(hi-lo)||1, W=300, H=44;
-  var d=pts.map(function(v,k){ return (k?'L':'M')+(k*W/7).toFixed(1)+' '+(H-6-(v-lo)/rg*(H-12)).toFixed(1); }).join(' ');
+  var lo=Math.min.apply(0,pts), hi=Math.max.apply(0,pts), rg=(hi-lo)||1, W=300, H=56;
+  
+  // Smooth Bezier Curve generator for modern wave graph
+  var coords = pts.map(function(v,k){ return {x: (k*W/7), y: (H-8-(v-lo)/rg*(H-16))}; });
+  var pathD = "M" + coords[0].x.toFixed(1) + " " + coords[0].y.toFixed(1);
+  for (var j = 0; j < coords.length - 1; j++) {
+    var xc = (coords[j].x + coords[j+1].x) / 2;
+    var yc = (coords[j].y + coords[j+1].y) / 2;
+    pathD += " Q " + coords[j].x.toFixed(1) + " " + coords[j].y.toFixed(1) + ", " + xc.toFixed(1) + " " + yc.toFixed(1);
+  }
+  pathD += " T " + coords[coords.length-1].x.toFixed(1) + " " + coords[coords.length-1].y.toFixed(1);
 
   return '<div class="bento-grid">' +
     '<div class="bento-card" style="align-items:center;justify-content:center;padding:12px;">' +
@@ -454,9 +459,9 @@ function heroHtml(t){
       '</div>' +
       '<div class="sparkline-container">' +
         '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" class="sparkline-svg">' +
-          '<defs><linearGradient id="sparkline-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--lent)" stop-opacity="0.4"/><stop offset="100%" stop-color="var(--lent)" stop-opacity="0"/></linearGradient></defs>' +
-          '<path d="'+d+' L'+W+' '+H+' L0 '+H+'Z" class="ta"/>' +
-          '<path d="'+d+'" class="tl"/>' +
+          '<defs><linearGradient id="sparkline-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--lent)" stop-opacity="0.5"/><stop offset="100%" stop-color="var(--lent)" stop-opacity="0"/></linearGradient></defs>' +
+          '<path d="'+pathD+' L'+W+' '+H+' L0 '+H+'Z" class="ta"/>' +
+          '<path d="'+pathD+'" class="tl"/>' +
         '</svg>' +
       '</div>' +
       '<div style="display:flex;justify-content:space-between;margin-top:2px;"><small style="font-size:11px;color:var(--muted);">'+esc(T('Last 8 weeks'))+'</small></div>' +
@@ -507,7 +512,6 @@ function viewAlerts(){
   return pagehead(T('Notifications'))+'<p class="sub">'+esc(T('Repayments due soon or late'))+'</p><section class="card flush" style="margin-top:8px">'+(al.length?al.map(function(a){return '<button class="row" data-a="loan" data-id="'+a.id+'"><span style="width:8px;height:8px;border-radius:50%;flex:none;background:'+(a.sev==='bad'?'var(--bad)':'var(--warn)')+'"></span><span class="grow"><b>'+esc(a.t)+'</b><small>'+esc(a.s)+'</small></span>'+ic(I.chev,18)+'</button>';}).join(''):empty(T('Nothing is due soon.')))+'</section>';
 }
 
-/* RESTORED FULL SETTINGS PAGE */
 function setRow(v,t,sub){return '<button type="button" class="row" data-a="setp" data-v="'+v+'"><span class="grow"><b>'+esc(t)+'</b><small>'+esc(sub)+'</small></span>'+ic(I.chev,18)+'</button>';}
 
 function viewSettings(){
@@ -532,7 +536,6 @@ function viewSetPage(k){
   return pagehead(ttl)+body;
 }
 
-/* RESTORED ACTIVITY LOG TAB */
 function actRange(){
   var t=startOfDay(Date.now()),f=state.actFilter,s,e;
   if(f==='all')return {};
@@ -579,7 +582,6 @@ function viewLock(){
   return '<div class="lockbox"><h1 style="text-align:center;font-family:Unbounded;">AMANAH</h1><p class="sub" style="text-align:center">'+esc(T('Enter your PIN'))+'</p><div class="dots">'+d+'</div><div class="pad">'+keys+'</div></div>';
 }
 
-/* RESTORED PAYMENT METHODS & SHEETS */
 var METHODS=[{g:'Cash',i:[['cash','Cash']]},{g:'Mobile wallets',i:[['telebirr','Telebirr'],['mpesa','M-Pesa'],['cbebirr','CBE Birr']]},{g:'Banks',i:[['cbe','CBE'],['abyssinia','Bank of Abyssinia']]},{g:'Other',i:[['other','Other']]}];
 function mName(x){if(x.m==='other')return x.label||T('Other');for(var g=0;g<METHODS.length;g++)for(var k=0;k<METHODS[g].i.length;k++)if(METHODS[g].i[k][0]===x.m)return METHODS[g].i[k][1];return x.m;}
 function mSel(){var v=F('f_meth');return v?v.split(','):[];}
